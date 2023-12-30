@@ -37,3 +37,26 @@ function closeWindow(windowId) {
     var windowElement = document.getElementById(windowId);
     windowElement.style.display = "none";
 }
+
+function dragWindow(event, windowId) {
+    var windowElement = document.getElementById(windowId);
+    var posX = event.clientX, posY = event.clientY;
+
+    document.onmousemove = function(event) {
+        var dx = posX - event.clientX;
+        var dy = posY - event.clientY;
+        posX = event.clientX;
+        posY = event.clientY;
+
+        var newTop = windowElement.offsetTop - dy;
+        var newLeft = windowElement.offsetLeft - dx;
+
+        windowElement.style.top = newTop + "px";
+        windowElement.style.left = newLeft + "px";
+    };
+
+    document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+    };
+}

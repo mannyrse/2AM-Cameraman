@@ -38,6 +38,8 @@ function closeWindow(windowId) {
     windowElement.style.display = "none";
 }
 
+// Draggable windows
+
 function dragWindow(event, windowId) {
     var windowElement = document.getElementById(windowId);
     var posX = event.clientX, posY = event.clientY;
@@ -59,4 +61,28 @@ function dragWindow(event, windowId) {
         document.onmousemove = null;
         document.onmouseup = null;
     };
+}
+
+// Resize Windows
+
+function initResize(event, windowId) {
+    event.preventDefault();
+    var windowElement = document.getElementById(windowId);
+    var startX = event.clientX;
+    var startY = event.clientY;
+    var startWidth = parseInt(document.defaultView.getComputedStyle(windowElement).width, 10);
+    var startHeight = parseInt(document.defaultView.getComputedStyle(windowElement).height, 10);
+
+    document.documentElement.addEventListener('mousemove', doDrag, false);
+    document.documentElement.addEventListener('mouseup', stopDrag, false);
+
+    function doDrag(event) {
+        windowElement.style.width = (startWidth + event.clientX - startX) + "px";
+        windowElement.style.height = (startHeight + event.clientY - startY) + "px";
+    }
+
+    function stopDrag(event) {
+        document.documentElement.removeEventListener('mousemove', doDrag, false);
+        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    }
 }

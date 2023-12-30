@@ -53,8 +53,8 @@ body {
     position: fixed;
     top: 10%;
     left: 10%;
-    right: 10%;
-    bottom: 10%;
+    width: 60%;
+    height: 70%;
     background-color: white;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -77,6 +77,10 @@ body {
 
 .close-btn:hover {
     color: red;
+}
+
+.draggable {
+    cursor: move;
 }
 
 /* Footer */

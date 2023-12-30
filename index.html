@@ -31,6 +31,7 @@
         </div>
         <h2>Title</h2>
         <p>Content for window 1</p>
+        <div class="resize-handle" onmousedown="initResize(event, 'window1')"></div>
     </div>
     <div id="window2" class="floating-window">
         <div class="window-header draggable" onmousedown="dragWindow(event, 'window2')">
@@ -38,10 +39,12 @@
         </div>
         <h2>Title</h2>
         <p>Content for window 2</p>
+        <div class="resize-handle" onmousedown="initResize(event, 'window1')"></div>
     </div>
     <div id="window3" class="floating-window">
         <div class="window-header draggable" onmousedown="dragWindow(event, 'window3')">
             <button class="close-btn" onclick="closeWindow('window3')">&times;</button>
+            <div class="resize-handle" onmousedown="initResize(event, 'window2')"></div>
         </div>
         <h2>Title</h2>
         <p>Content for window 3
@@ -49,6 +52,7 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="resize-handle" onmousedown="initResize(event, 'window3')"></div>
     </div>
 
     <footer class="taskbar">

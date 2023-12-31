@@ -108,9 +108,18 @@ function initResize(event, windowId) {
     document.documentElement.addEventListener('mousemove', doDrag, false);
     document.documentElement.addEventListener('mouseup', stopDrag, false);
 
+    // Define minimum dimensions for the window
+    var minWidth = 300; // Minimum width in pixels
+    var minHeight = 300; // Minimum height in pixels
+
     function doDrag(event) {
-        windowElement.style.width = (startWidth + event.clientX - startX) + "px";
-        windowElement.style.height = (startHeight + event.clientY - startY) + "px";
+        // Calculate new dimensions
+        var newWidth = startWidth + event.clientX - startX;
+        var newHeight = startHeight + event.clientY - startY;
+
+        // Apply the new dimensions if they are above the minimum size
+        windowElement.style.width = newWidth > minWidth ? newWidth + "px" : minWidth + "px";
+        windowElement.style.height = newHeight > minHeight ? newHeight + "px" : minHeight + "px";
     }
 
     function stopDrag(event) {
@@ -118,3 +127,4 @@ function initResize(event, windowId) {
         document.documentElement.removeEventListener('mouseup', stopDrag, false);
     }
 }
+

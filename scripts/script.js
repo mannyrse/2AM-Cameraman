@@ -50,9 +50,25 @@ function dragWindow(event, windowId) {
         posX = event.clientX;
         posY = event.clientY;
 
+        // Calculate new position
         var newTop = windowElement.offsetTop - dy;
         var newLeft = windowElement.offsetLeft - dx;
 
+        // Get the window's dimensions
+        var windowWidth = windowElement.offsetWidth;
+        var windowHeight = windowElement.offsetHeight;
+
+        // Get the viewport's dimensions
+        var maxWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var maxHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        // Constrain the window within the bounds of the viewport
+        if (newLeft < 0) newLeft = 0;
+        if (newTop < 0) newTop = 0;
+        if (newLeft + windowWidth > maxWidth) newLeft = maxWidth - windowWidth;
+        if (newTop + windowHeight > maxHeight) newTop = maxHeight - windowHeight;
+
+        // Apply the new position
         windowElement.style.top = newTop + "px";
         windowElement.style.left = newLeft + "px";
     };

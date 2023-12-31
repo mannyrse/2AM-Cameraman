@@ -30,7 +30,13 @@ body {
     display: block;
     margin-bottom: 20px;
     text-align: center;
-    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    animation-fill-mode: forwards;
+    font-family: inherit;
 }
 
 .navigation-item img {
@@ -40,10 +46,32 @@ body {
     margin: 0 auto;
 }
 
+.navigation-item.active {
+    pointer-events: auto;
+}
+
 .nav-text {
     display: block;
     color: white;
     margin-top: 5px;
+}
+
+.hidden-slide {
+    animation: slideInFromLeft 0.5s ease-out 4s forwards; 
+    opacity: 0; 
+    pointer-events: none;
+}
+
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Windows */
@@ -64,7 +92,28 @@ body {
 
 .window-header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.window-header::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    visibility: hidden;
+}
+
+.window-title {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .close-btn {
@@ -73,6 +122,7 @@ body {
     color: #333;
     font-size: 24px;
     cursor: pointer;
+    left: 0;
 }
 
 .close-btn:hover {
@@ -101,7 +151,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 5%;
+    height: 2em;
     background-color: #333;
     color: white;
     display: flex;
@@ -118,11 +168,15 @@ body {
 
 .social-media-icons img {
     margin: 0 10px;
-    width: 24px;
+    width: 1.5em;
     height: auto;
+    vertical-align: middle;
 }
 
 .time {
-    font-size: 16px;
+    font-size: 1em;
     margin: 0 10px;
+    display: flex;
+    align-items: center;
 }
+

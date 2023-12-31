@@ -3,11 +3,27 @@
 let introVideo = document.getElementById("introVideo");
 let secondVideo = document.getElementById("secondVideo");
 
+introVideo.playbackRate = 1.5;
+
 introVideo.addEventListener("ended", () => {
     introVideo.style.display = "none";
     secondVideo.style.display = "block";
     secondVideo.play();
+
+    // Add the 'hidden-slide' class to each navigation item to start the animation
+    let navItems = document.querySelectorAll('.navigation-item');
+    navItems.forEach(item => {
+        item.classList.add('hidden-slide');
+        makeClickableAfterAnimation(item); // Make the item clickable after the animation
+    });
 });
+
+// Function to add 'active' class after animation ends
+function makeClickableAfterAnimation(item) {
+    item.addEventListener('animationend', () => {
+        item.classList.add('active');
+    });
+}
 
 // Taskbar time
 
@@ -20,7 +36,7 @@ function updateTaskbarTime() {
 setInterval(updateTaskbarTime, 1000);
 updateTaskbarTime(); 
 
-// Windows functions
+// Windows functionality
 
 var highestZIndex = 1000;
 

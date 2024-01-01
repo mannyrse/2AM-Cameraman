@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Max Cavaness, also known as 2AM Cameraman, showcases professional photography and videography work. Explore galleries, videos, and more.">
+    <meta name="keywords" content="2AM Cameraman, Photography, Videography, Max Cavaness, Photo Gallery, Video Content">
     <title>2AM Cameraman</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/pictures.png">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="canonical" href="URL_to_your_site"> <!-- Update once uploaded to GitPages -->
+    <link rel="preconnect" href="https://www.youtube.com">
+    <link rel="preconnect" href="https://www.google.com">    
+    <!-- Open Graph / Twitter Cards -->
+    <meta property="og:title" content="2AM Cameraman - Max Cavaness">
     <link rel="icon" type="image/x-icon" href="assets/images/pictures.png">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
@@ -11,7 +20,7 @@
     <video class="background-video" autoplay muted id="introVideo" src="assets/videos/moon.mp4"></video>
     <video class="background-video" muted id="secondVideo" src="assets/videos/waves.mp4" style="display: none;" loop></video>
 
-    <div class="navigation-container">
+    <nav class="navigation-container">
         <button class="navigation-item hidden-slide" onclick="openWindow('window1')">
             <img src="assets/images/about.png" alt="Icon for 'About' window.">
             <span class="nav-text">About Me</span>
@@ -24,30 +33,51 @@
             <img src="assets/images/videos.png" alt="Icon for 'Videos' window.">
             <span class="nav-text">Videos</span>
         </button>
-    </div>
+    </nav>
 
     <!-- About -->
-    <div id="window1" class="floating-window">
+    <section id="window1" class="floating-window">
         <div class="window-header draggable" onmousedown="dragWindow(event, 'window1')">
             <button class="close-btn" onclick="closeWindow('window1')">&times;</button>
             <h2 class="window-title">About Me</h2>
         </div>
-        <p>Content for window 1</p>
+        <div class="about-content">
+            <img src="assets/images/sky_to_sunrise_trans_copy.jpg" alt="Profile Picture" class="profile-picture">
+            <h3>Max Cavaness</h3>
+            <p class="bio">A bio goes here. This could be a couple of sentences up to a short paragraph talking about your professional background, interests, and any other relevant information.</p>
+            <!-- Social media links -->
+            <div class="social-media-links">
+                <a href="https://www.instagram.com/2am_cameraman/" target="_blank" class="social-link">Instagram</a>
+                <a href="https://x.com/maxhescav?s=21&t=2je7gYnLTKZDAx42Ce9fng" target="_blank" class="social-link">Twitter</a>
+                <a href="https://www.youtube.com/@2amCameraman" target="_blank" class="social-link">YouTube</a>
+                <a href="mailto:2amcameraman@gmail.com" target="_blank" class="social-link">Email</a>
+                <!-- Add more links as needed -->
+            </div>
+        </div>
         <div class="resize-handle" onmousedown="initResize(event, 'window1')"></div>
-    </div>
-
+    </section>
+    
     <!-- Pictures -->
-    <div id="window2" class="floating-window">
+    <section id="window2" class="floating-window">
         <div class="window-header draggable" onmousedown="dragWindow(event, 'window2')">
             <button class="close-btn" onclick="closeWindow('window2')">&times;</button>
             <h2 class="window-title">Pictures</h2>
         </div>
-        <p>Content for window 2</p>
+        <div class="content-container">
+            <!-- Repeat this img tag for each picture you want to display -->
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <img src="assets/images/pictures.png" alt="Description of image 1">
+            <!-- ...more images... -->
+        </div>
         <div class="resize-handle" onmousedown="initResize(event, 'window2')"></div>
-    </div>
-
+    </section>
+    
     <!-- Videos -->
-    <div id="window3" class="floating-window">
+    <section id="window3" class="floating-window">
         <div class="window-header draggable" onmousedown="dragWindow(event, 'window3')">
             <button class="close-btn" onclick="closeWindow('window3')">&times;</button>
             <h2 class="window-title">Videos</h2>
@@ -55,23 +85,92 @@
         <div class="video-container">
             <!-- Video 1 -->
             <div class="video-item">
-                <iframe class="youtube-video" src="https://www.youtube.com/embed/vf49liYu718" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <p class="video-description">Short description for Video 1</p>
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
             </div>
             <!-- Video 1 -->
             <div class="video-item">
-                <iframe class="youtube-video" src="https://www.youtube.com/embed/vf49liYu718" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <p class="video-description">Short description for Video 1</p>
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
             </div>
             <!-- Video 1 -->
             <div class="video-item">
-                <iframe class="youtube-video" src="https://www.youtube.com/embed/vf49liYu718" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <p class="video-description">Short description for Video 1</p>
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
+            </div>
+            <!-- Video 1 -->
+            <div class="video-item">
+                <div class="youtube-video">
+                    <iframe src="https://www.youtube.com/embed/vf49liYu718?si=tHFk2Hp70GFuVXhj" allowfullscreen></iframe>
+                </div>
+                <p class="video-description">Description</p>
             </div>
             <!-- Repeat for more videos... -->
         </div>
         <div class="resize-handle" onmousedown="initResize(event, 'window3')"></div>
-    </div>
+    </section>
 
     <footer class="taskbar">
         <div class="social-media-icons">

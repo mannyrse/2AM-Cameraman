@@ -46,13 +46,25 @@ function openWindow(windowId) {
     highestZIndex++;
     windowElement.style.zIndex = highestZIndex;
 
+    windowElement.classList.add('opening'); // Add the opening class to start the animation
     windowElement.style.display = "block";
+
+    windowElement.addEventListener('animationend', () => {
+        windowElement.classList.remove('opening'); // Remove the class after the animation
+    });
 }
+
 
 function closeWindow(windowId) {
     var windowElement = document.getElementById(windowId);
-    windowElement.style.display = "none";
+    windowElement.classList.add('closing'); // Trigger the closing animation
+
+    setTimeout(function() {
+        windowElement.style.display = 'none'; 
+        windowElement.classList.remove('closing'); 
+    }, 500); // Match this duration with your CSS animation duration
 }
+
 
 // Draggable windows
 
@@ -102,24 +114,25 @@ function initResize(event, windowId) {
     var windowElement = document.getElementById(windowId);
     var startX = event.clientX;
     var startY = event.clientY;
-    var startWidth = parseInt(document.defaultView.getComputedStyle(windowElement).width, 10);
-    var startHeight = parseInt(document.defaultView.getComputedStyle(windowElement).height, 10);
+    var startWidth = windowElement.clientWidth;
+    var startHeight = windowElement.clientHeight;
 
     document.documentElement.addEventListener('mousemove', doDrag, false);
     document.documentElement.addEventListener('mouseup', stopDrag, false);
 
-    // Define minimum dimensions for the window
-    var minWidth = 300; // Minimum width in pixels
-    var minHeight = 300; // Minimum height in pixels
+    var minWidth = 300;
+    var minHeight = 300;
 
     function doDrag(event) {
-        // Calculate new dimensions
         var newWidth = startWidth + event.clientX - startX;
         var newHeight = startHeight + event.clientY - startY;
 
-        // Apply the new dimensions if they are above the minimum size
-        windowElement.style.width = newWidth > minWidth ? newWidth + "px" : minWidth + "px";
-        windowElement.style.height = newHeight > minHeight ? newHeight + "px" : minHeight + "px";
+        // Adjusting the new dimensions to account for scrollable content
+        newWidth = Math.max(newWidth, minWidth);
+        newHeight = Math.max(newHeight, minHeight);
+
+        windowElement.style.width = newWidth + "px";
+        windowElement.style.height = newHeight + "px";
     }
 
     function stopDrag(event) {
@@ -128,3 +141,29 @@ function initResize(event, windowId) {
     }
 }
 
+// Call this function whenever the window content is scrolled
+function onWindowScroll(windowId) {
+    var windowElement = document.getElementById(windowId);
+    var resizeHandle = windowElement.querySelector('.resize-handle');
+
+    // Adjust the handle position based on the scroll
+    var scrollBottom = windowElement.scrollTop + windowElement.clientHeight;
+    var scrollRight = windowElement.scrollLeft + windowElement.clientWidth;
+
+    resizeHandle.style.top = (scrollBottom - resizeHandle.offsetHeight) + 'px';
+    resizeHandle.style.left = (scrollRight - resizeHandle.offsetWidth) + 'px';
+}
+
+// Add scroll event listener to the window
+function addScrollListener(windowId) {
+    var windowElement = document.getElementById(windowId);
+    windowElement.addEventListener('scroll', function() {
+        onWindowScroll(windowId);
+    });
+}
+
+// Initialize this for each window
+addScrollListener('window1');
+addScrollListener('window2');
+addScrollListener('window3');
+// Repeat for other windows as needed

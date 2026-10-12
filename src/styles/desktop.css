@@ -1,0 +1,108 @@
+.desktop {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+.desktop__wallpaper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: var(--z-wallpaper);
+}
+
+.desktop__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(11, 16, 32, .25), rgba(11, 16, 32, .55));
+    z-index: var(--z-wallpaper);
+}
+
+.desktop__icons {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    bottom: calc(var(--taskbar-height) + 24px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 16px;
+    z-index: var(--z-icons);
+}
+
+.desktop-icon {
+    width: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 4px;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    animation: icon-in var(--dur) var(--ease) both;
+    animation-delay: calc(var(--i) * 80ms);
+    transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, .1);
+    border-color: var(--border);
+}
+
+.desktop-icon:active {
+    background: rgba(255, 255, 255, .18);
+}
+
+.desktop-icon__glyph {
+    font-size: var(--icon-size);
+    line-height: 1;
+}
+
+.desktop-icon__label {
+    font-size: 13px;
+    text-align: center;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .9);
+}
+
+@keyframes icon-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.taskbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--taskbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    z-index: var(--z-taskbar);
+}
+
+.taskbar__brand {
+    font-weight: 600;
+    letter-spacing: .02em;
+}
+
+.taskbar__clock {
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+}

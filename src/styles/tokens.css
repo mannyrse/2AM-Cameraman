@@ -1,0 +1,28 @@
+:root {
+    --bg-deep: #0b1020;
+    --surface: rgba(18, 24, 40, 0.72);
+    --surface-solid: #121828;
+    --text: #eef1f7;
+    --text-muted: #9aa4b8;
+    --accent: #7fb2ff;
+    --border: rgba(255, 255, 255, 0.12);
+
+    --radius: 12px;
+    --taskbar-height: 48px;
+    --icon-size: 56px;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+
+    --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --dur-fast: 150ms;
+    --dur: 250ms;
+
+    /* Stacking levels, so z-index is never arbitrary */
+    --z-wallpaper: 0;
+    --z-icons: 10;
+    --z-windows: 100;
+    /* window manager counts up from here */
+    --z-taskbar: 9000;
+    --z-modal: 10000;
+}

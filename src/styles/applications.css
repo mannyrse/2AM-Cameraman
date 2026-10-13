@@ -1,3 +1,5 @@
+/* About App */
+
 .about {
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -62,6 +64,8 @@
     }
 }
 
+/* Contact App */
+
 .contact {
     text-align: center;
     padding: 8px 0;
@@ -124,4 +128,118 @@
 .contact__links a:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--accent);
+}
+
+/* Photos App */
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gallery__item {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    padding: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.gallery__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--dur) var(--ease);
+}
+
+.gallery__item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery__empty {
+    color: var(--text-muted);
+}
+
+.viewer {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 72px;
+    background: rgba(5, 8, 16, 0.88);
+    backdrop-filter: blur(6px);
+}
+
+.viewer__figure {
+    margin: 0;
+    max-width: 100%;
+    max-height: 100%;
+    text-align: center;
+}
+
+.viewer__figure img {
+    max-width: 100%;
+    max-height: calc(100vh - 140px);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.viewer__figure figcaption {
+    margin-top: 12px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.viewer__btn {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background var(--dur-fast);
+}
+
+.viewer__btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.viewer__close {
+    top: 16px;
+    right: 16px;
+}
+
+.viewer__prev {
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.viewer__next {
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+    .viewer {
+        padding: 56px 12px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

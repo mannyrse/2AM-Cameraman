@@ -1,4 +1,5 @@
 import { useClock } from '../hooks/useClock'
+import AppIcon from './AppIcon'
 
 export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
     const now = useClock()
@@ -20,7 +21,7 @@ export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
                             aria-pressed={isActive}
                             onClick={() => onToggle(win.appId)}
                         >
-                            <span aria-hidden="true">{app.icon}</span>
+                            <AppIcon app={app} size={18} />
                             <span className="taskbar__app-name">{app.name}</span>
                         </button>
                     )

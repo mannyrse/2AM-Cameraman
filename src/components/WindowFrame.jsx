@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import AppIcon from './AppIcon'
 
 export default function WindowFrame({
     app, win, isActive, onFocus, onClose, onMinimize, onMove, children,
@@ -69,7 +70,7 @@ export default function WindowFrame({
                 onPointerCancel={handleUp}
             >
                 <span className="window__title">
-                    <span aria-hidden="true">{app.icon}</span> {app.name}
+                    <AppIcon app={app} size={16} /> {app.name}
                 </span>
                 <div className="window__controls">
                     <button

@@ -152,3 +152,32 @@
         display: none;
     }
 }
+
+.app-icon {
+    display: block;
+    flex: none;
+}
+
+.window__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.icon-contact .letter {
+    transition: transform var(--dur) var(--ease);
+}
+
+.icon-contact .flap-front {
+    transition: opacity var(--dur-fast);
+}
+
+.desktop-icon:hover .icon-contact .letter,
+.desktop-icon:focus-visible .icon-contact .letter {
+    transform: translateY(-16px);
+}
+
+.desktop-icon:hover .icon-contact .flap-front,
+.desktop-icon:focus-visible .icon-contact .flap-front {
+    opacity: 0;
+}

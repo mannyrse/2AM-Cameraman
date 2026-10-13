@@ -40,7 +40,12 @@
     font-weight: 600;
 }
 
-.window__close {
+.window__controls {
+    display: flex;
+    gap: 2px;
+}
+
+.window__btn {
     width: 28px;
     height: 28px;
     background: none;
@@ -50,8 +55,16 @@
     transition: background var(--dur-fast);
 }
 
-.window__close:hover {
+.window__btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.window__btn--close:hover {
     background: rgba(255, 90, 90, 0.35);
+}
+
+.window--minimized {
+    display: none;
 }
 
 .window__content {

@@ -2,6 +2,11 @@ import { useReducer } from 'react'
 
 const Z_BASE = 100 // matches --z-windows in tokens.css
 
+const getActiveId = (windows) =>
+    windows
+        .filter((w) => !w.minimized)
+        .reduce((top, w) => (!top || w.zIndex > top.zIndex ? w : top), null)?.appId
+
 const initialState = { topZ: Z_BASE, windows: [] }
 
 function reducer(state, action) {
@@ -15,7 +20,7 @@ function reducer(state, action) {
                 return {
                     topZ: z,
                     windows: state.windows.map((w) =>
-                        w.appId === action.appId ? { ...w, zIndex: z } : w
+                        w.appId === action.appId ? { ...w, zIndex: z, minimized: false } : w
                     ),
                 }
             }
@@ -25,6 +30,7 @@ function reducer(state, action) {
             const win = {
                 appId: action.appId,
                 zIndex: z,
+                minimized: false,
                 position: { x: 140 + n * 32, y: 60 + n * 32 },
             }
             return { topZ: z, windows: [...state.windows, win] }
@@ -50,6 +56,38 @@ function reducer(state, action) {
                 ),
             }
 
+        case 'minimize':
+            return {
+                ...state,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, minimized: true } : w
+                ),
+            }
+
+        case 'toggle': {
+            const target = state.windows.find((w) => w.appId === action.appId)
+            if (!target) return state
+
+            // Already in front and visible: minimize it
+            if (!target.minimized && getActiveId(state.windows) === action.appId) {
+                return {
+                    ...state,
+                    windows: state.windows.map((w) =>
+                        w.appId === action.appId ? { ...w, minimized: true } : w
+                    ),
+                }
+            }
+
+            // Minimized or behind other windows: restore and bring to front
+            const z = state.topZ + 1
+            return {
+                topZ: z,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, minimized: false, zIndex: z } : w
+                ),
+            }
+        }
+
         case 'close':
             return {
                 ...state,
@@ -64,17 +102,16 @@ function reducer(state, action) {
 export function useWindowManager() {
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    const activeAppId = state.windows.reduce(
-        (top, w) => (!top || w.zIndex > top.zIndex ? w : top),
-        null
-    )?.appId
+    const activeAppId = getActiveId(state.windows)
 
     return {
         windows: state.windows,
         activeAppId,
         openApp: (appId) => dispatch({ type: 'open', appId }),
         focusApp: (appId) => dispatch({ type: 'focus', appId }),
+        moveApp: (appId, position) => dispatch({ type: 'move', appId, position }),
+        minimizeApp: (appId) => dispatch({ type: 'minimize', appId }),
+        toggleApp: (appId) => dispatch({ type: 'toggle', appId }),
         closeApp: (appId) => dispatch({ type: 'close', appId }),
-        moveApp: (appId) => dispatch({ type: 'move', appId, position }),
     }
 }

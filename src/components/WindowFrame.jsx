@@ -1,11 +1,13 @@
 import { useRef } from 'react'
 
-export default function WindowFrame({ app, win, isActive, onFocus, onClose, onMove, children }) {
+export default function WindowFrame({
+    app, win, isActive, onFocus, onClose, onMinimize, onMove, children,
+}) {
     const ref = useRef(null)
     const drag = useRef(null)
 
     const handleDown = (e) => {
-        if (e.button !== 0 || e.target.closest('button')) return // left click only, never from buttons
+        if (e.button !== 0 || e.target.closest('button')) return
         const el = ref.current
         e.currentTarget.setPointerCapture(e.pointerId)
         drag.current = {
@@ -48,7 +50,7 @@ export default function WindowFrame({ app, win, isActive, onFocus, onClose, onMo
     return (
         <section
             ref={ref}
-            className={`window${isActive ? ' window--active' : ''}`}
+            className={`window${isActive ? ' window--active' : ''}${win.minimized ? ' window--minimized' : ''}`}
             style={{
                 left: win.position.x,
                 top: win.position.y,
@@ -69,13 +71,22 @@ export default function WindowFrame({ app, win, isActive, onFocus, onClose, onMo
                 <span className="window__title">
                     <span aria-hidden="true">{app.icon}</span> {app.name}
                 </span>
-                <button
-                    className="window__close"
-                    aria-label={`Close ${app.name}`}
-                    onClick={() => onClose(app.id)}
-                >
-                    ✕
-                </button>
+                <div className="window__controls">
+                    <button
+                        className="window__btn"
+                        aria-label={`Minimize ${app.name}`}
+                        onClick={() => onMinimize(app.id)}
+                    >
+                        ‒
+                    </button>
+                    <button
+                        className="window__btn window__btn--close"
+                        aria-label={`Close ${app.name}`}
+                        onClick={() => onClose(app.id)}
+                    >
+                        ✕
+                    </button>
+                </div>
             </header>
             <div className="window__content">{children}</div>
         </section>

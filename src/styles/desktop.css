@@ -106,3 +106,49 @@
     color: var(--text-muted);
     font-variant-numeric: tabular-nums;
 }
+
+.taskbar__apps {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    margin: 0 16px;
+    overflow-x: auto;
+}
+
+.taskbar__app {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 34px;
+    padding: 0 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--dur-fast);
+}
+
+.taskbar__app:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.taskbar__app--active {
+    background: rgba(255, 255, 255, 0.12);
+    border-bottom-color: var(--accent);
+}
+
+.taskbar__app--minimized {
+    opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+    .taskbar__app-name {
+        display: none;
+    }
+
+    .taskbar__brand {
+        display: none;
+    }
+}

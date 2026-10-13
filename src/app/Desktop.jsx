@@ -5,7 +5,7 @@ import { useWindowManager } from '../hooks/useWindowManager'
 import { apps } from './desktopConfig'
 
 export default function Desktop() {
-    const { windows, activeAppId, openApp, closeApp, focusApp, moveApp } = useWindowManager()
+    const { windows, activeAppId, openApp, closeApp, focusApp, moveApp, minimizeApp, toggleApp } = useWindowManager()
 
     return (
         <div className="desktop">
@@ -36,13 +36,14 @@ export default function Desktop() {
                         onFocus={focusApp}
                         onClose={closeApp}
                         onMove={moveApp}
+                        onMinimize={minimizeApp}
                     >
                         <p>{app.name} content coming soon.</p>
                     </WindowFrame>
                 )
             })}
 
-            <Taskbar />
+            <Taskbar windows={windows} apps={apps} activeAppId={activeAppId} onToggle={toggleApp} />
         </div>
     )
 }

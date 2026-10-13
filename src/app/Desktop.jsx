@@ -38,7 +38,7 @@ export default function Desktop() {
                         onMove={moveApp}
                         onMinimize={minimizeApp}
                     >
-                        <p>{app.name} content coming soon.</p>
+                        {app.Component ? <app.Component /> : <p>{app.name} content coming soon.</p>}
                     </WindowFrame>
                 )
             })}

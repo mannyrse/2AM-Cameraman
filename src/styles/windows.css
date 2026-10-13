@@ -27,6 +27,8 @@
     border-bottom: 1px solid var(--border);
     color: var(--text-muted);
     user-select: none;
+    cursor: grab;
+    touch-action: none;
 }
 
 .window--active .window__titlebar {

@@ -42,6 +42,14 @@ function reducer(state, action) {
             }
         }
 
+        case 'move':
+            return {
+                ...state,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, position: action.position } : w
+                ),
+            }
+
         case 'close':
             return {
                 ...state,
@@ -67,5 +75,6 @@ export function useWindowManager() {
         openApp: (appId) => dispatch({ type: 'open', appId }),
         focusApp: (appId) => dispatch({ type: 'focus', appId }),
         closeApp: (appId) => dispatch({ type: 'close', appId }),
+        moveApp: (appId) => dispatch({ type: 'move', appId, position }),
     }
 }

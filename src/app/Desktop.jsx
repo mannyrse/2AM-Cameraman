@@ -5,7 +5,7 @@ import { useWindowManager } from '../hooks/useWindowManager'
 import { apps } from './desktopConfig'
 
 export default function Desktop() {
-    const { windows, activeAppId, openApp, closeApp, focusApp } = useWindowManager()
+    const { windows, activeAppId, openApp, closeApp, focusApp, moveApp } = useWindowManager()
 
     return (
         <div className="desktop">
@@ -35,6 +35,7 @@ export default function Desktop() {
                         isActive={win.appId === activeAppId}
                         onFocus={focusApp}
                         onClose={closeApp}
+                        onMove={moveApp}
                     >
                         <p>{app.name} content coming soon.</p>
                     </WindowFrame>

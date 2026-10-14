@@ -262,3 +262,65 @@
 :root[data-motion="reduced"] .icon-videos .arrows {
     animation: none;
 }
+
+/* Pictures Icon */
+
+.icon-pictures .rays {
+    transform-origin: 118px 38px;
+    opacity: 0;
+    animation: pictures-spin 5s linear infinite;
+    animation-play-state: paused;
+    transition: opacity 0.35s ease;
+}
+
+.icon-pictures .sun {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.desktop-icon:hover .icon-pictures .rays,
+.desktop-icon:focus-visible .icon-pictures .rays {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+.desktop-icon:hover .icon-pictures .sun,
+.desktop-icon:focus-visible .icon-pictures .sun {
+    transform: scale(1.12);
+}
+
+@keyframes pictures-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+:root[data-motion="reduced"] .icon-pictures .rays {
+    animation: none;
+}
+
+/* About Icon */
+.icon-about .bubble {
+    transform-origin: 103px 47px;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.2s ease-in, opacity 0.15s ease;
+}
+
+.icon-about .head {
+    transform-origin: 75px 68px;
+    transition: transform 0.3s ease;
+}
+
+.desktop-icon:hover .icon-about .bubble,
+.desktop-icon:focus-visible .icon-about .bubble {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.4s cubic-bezier(0.3, 1.7, 0.5, 1), opacity 0.15s ease;
+}
+
+.desktop-icon:hover .icon-about .head,
+.desktop-icon:focus-visible .icon-about .head {
+    transform: rotate(7deg);
+}

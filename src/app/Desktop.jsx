@@ -4,7 +4,7 @@ import WindowFrame from '../components/WindowFrame'
 import { useWindowManager } from '../hooks/useWindowManager'
 import { apps } from './desktopConfig'
 
-export default function Desktop() {
+export default function Desktop({ ready = true }) {
     const { windows, activeAppId, openApp, closeApp, focusApp, moveApp, resizeApp, minimizeApp, toggleApp } = useWindowManager()
     return (
         <div className="desktop">
@@ -18,11 +18,13 @@ export default function Desktop() {
             />
             <div className="desktop__overlay" />
 
-            <nav className="desktop__icons" aria-label="Applications">
-                {apps.map((app, i) => (
-                    <DesktopIcon key={app.id} app={app} index={i} onOpen={openApp} />
-                ))}
-            </nav>
+            {ready && (
+                <nav className="desktop__icons" aria-label="Applications">
+                    {apps.map((app, i) => (
+                        <DesktopIcon key={app.id} app={app} index={i} onOpen={openApp} />
+                    ))}
+                </nav>
+            )}
 
             {windows.map((win) => {
                 const app = apps.find((a) => a.id === win.appId)

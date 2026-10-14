@@ -22,6 +22,7 @@
     --z-wallpaper: 0;
     --z-icons: 10;
     --z-windows: 100;
+    --z-intro: 20000;
     /* window manager counts up from here */
     --z-taskbar: 9000;
     --z-modal: 10000;

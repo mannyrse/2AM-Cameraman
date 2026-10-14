@@ -5,8 +5,7 @@ import { useWindowManager } from '../hooks/useWindowManager'
 import { apps } from './desktopConfig'
 
 export default function Desktop() {
-    const { windows, activeAppId, openApp, closeApp, focusApp, moveApp, minimizeApp, toggleApp } = useWindowManager()
-
+    const { windows, activeAppId, openApp, closeApp, focusApp, moveApp, resizeApp, minimizeApp, toggleApp } = useWindowManager()
     return (
         <div className="desktop">
             <video
@@ -36,6 +35,7 @@ export default function Desktop() {
                         onFocus={focusApp}
                         onClose={closeApp}
                         onMove={moveApp}
+                        onResize={resizeApp}
                         onMinimize={minimizeApp}
                     >
                         {app.Component ? <app.Component /> : <p>{app.name} content coming soon.</p>}

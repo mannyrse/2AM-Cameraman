@@ -84,3 +84,33 @@
         transform: none;
     }
 }
+
+.window__resize {
+    position: absolute;
+    z-index: 1;
+    touch-action: none;
+}
+
+.window__resize--e {
+    top: 40px;
+    right: 0;
+    bottom: 14px;
+    width: 6px;
+    cursor: ew-resize;
+}
+
+.window__resize--s {
+    left: 0;
+    right: 14px;
+    bottom: 0;
+    height: 6px;
+    cursor: ns-resize;
+}
+
+.window__resize--se {
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    cursor: nwse-resize;
+}

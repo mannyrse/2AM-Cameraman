@@ -1,12 +1,22 @@
 import { useRef } from 'react'
 import AppIcon from './AppIcon'
 
+const MIN_WIDTH = 320
+const MIN_HEIGHT = 220
+
+const getTaskbarHeight = () =>
+    parseInt(getComputedStyle(document.documentElement).getPropertyValue('--taskbar-height'), 10)
+
 export default function WindowFrame({
-    app, win, isActive, onFocus, onClose, onMinimize, onMove, children,
+    app, win, isActive, onFocus, onClose, onMinimize, onMove, onResize, children,
 }) {
     const ref = useRef(null)
     const drag = useRef(null)
+    const resize = useRef(null)
 
+    const size = win.size ?? { width: app.width, height: app.height }
+
+    /* ---------- dragging ---------- */
     const handleDown = (e) => {
         if (e.button !== 0 || e.target.closest('button')) return
         const el = ref.current
@@ -26,13 +36,9 @@ export default function WindowFrame({
         if (!d) return
         const el = ref.current
         const parent = el.offsetParent
-        const taskbar = parseInt(
-            getComputedStyle(document.documentElement).getPropertyValue('--taskbar-height'),
-            10
-        )
 
         const maxX = Math.max(0, parent.clientWidth - el.offsetWidth)
-        const maxY = Math.max(0, parent.clientHeight - taskbar - el.offsetHeight)
+        const maxY = Math.max(0, parent.clientHeight - getTaskbarHeight() - el.offsetHeight)
 
         d.x = Math.min(Math.max(0, d.originX + e.clientX - d.startX), maxX)
         d.y = Math.min(Math.max(0, d.originY + e.clientY - d.startY), maxY)
@@ -48,6 +54,56 @@ export default function WindowFrame({
         onMove(app.id, { x: d.x, y: d.y })
     }
 
+    /* ---------- resizing ---------- */
+    const startResize = (dir) => (e) => {
+        if (e.button !== 0) return
+        const el = ref.current
+        e.currentTarget.setPointerCapture(e.pointerId)
+        resize.current = {
+            dir,
+            startX: e.clientX,
+            startY: e.clientY,
+            startW: el.offsetWidth,
+            startH: el.offsetHeight,
+            width: el.offsetWidth,
+            height: el.offsetHeight,
+        }
+    }
+
+    const moveResize = (e) => {
+        const r = resize.current
+        if (!r) return
+        const el = ref.current
+        const parent = el.offsetParent
+
+        if (r.dir.includes('e')) {
+            const maxW = parent.clientWidth - el.offsetLeft
+            r.width = Math.min(Math.max(MIN_WIDTH, r.startW + e.clientX - r.startX), maxW)
+            el.style.width = `${r.width}px`
+        }
+        if (r.dir.includes('s')) {
+            const maxH = parent.clientHeight - getTaskbarHeight() - el.offsetTop
+            r.height = Math.min(Math.max(MIN_HEIGHT, r.startH + e.clientY - r.startY), maxH)
+            el.style.height = `${r.height}px`
+        }
+    }
+
+    const endResize = () => {
+        const r = resize.current
+        if (!r) return
+        resize.current = null
+        onResize(app.id, { width: r.width, height: r.height })
+    }
+
+    const resizeHandle = (dir) => ({
+        className: `window__resize window__resize--${dir}`,
+        onPointerDown: startResize(dir),
+        onPointerMove: moveResize,
+        onPointerUp: endResize,
+        onPointerCancel: endResize,
+        'aria-hidden': true,
+    })
+
     return (
         <section
             ref={ref}
@@ -55,8 +111,8 @@ export default function WindowFrame({
             style={{
                 left: win.position.x,
                 top: win.position.y,
-                width: app.width,
-                height: app.height,
+                width: size.width,
+                height: size.height,
                 zIndex: win.zIndex,
             }}
             onPointerDown={() => onFocus(app.id)}
@@ -89,7 +145,12 @@ export default function WindowFrame({
                     </button>
                 </div>
             </header>
+
             <div className="window__content">{children}</div>
+
+            <div {...resizeHandle('e')} />
+            <div {...resizeHandle('s')} />
+            <div {...resizeHandle('se')} />
         </section>
     )
 }

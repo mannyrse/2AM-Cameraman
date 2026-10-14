@@ -56,6 +56,14 @@ function reducer(state, action) {
                 ),
             }
 
+        case 'resize':
+            return {
+                ...state,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, size: action.size } : w
+                ),
+            }
+
         case 'minimize':
             return {
                 ...state,
@@ -110,6 +118,7 @@ export function useWindowManager() {
         openApp: (appId) => dispatch({ type: 'open', appId }),
         focusApp: (appId) => dispatch({ type: 'focus', appId }),
         moveApp: (appId, position) => dispatch({ type: 'move', appId, position }),
+        resizeApp: (appId, size) => dispatch({ type: 'resize', appId, size }),
         minimizeApp: (appId) => dispatch({ type: 'minimize', appId }),
         toggleApp: (appId) => dispatch({ type: 'toggle', appId }),
         closeApp: (appId) => dispatch({ type: 'close', appId }),

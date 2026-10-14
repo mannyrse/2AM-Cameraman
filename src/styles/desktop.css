@@ -217,3 +217,48 @@
 .intro__skip:hover {
     background: rgba(255, 255, 255, 0.22);
 }
+
+@media (max-width: 600px) {
+    .desktop {
+        height: 100dvh;
+    }
+
+    .desktop__icons {
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        bottom: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+        align-content: start;
+        gap: 8px;
+    }
+
+    .desktop-icon {
+        width: 100%;
+    }
+}
+
+.icon-videos .arrows {
+    animation: videos-scroll 0.7s linear infinite;
+    animation-play-state: paused;
+}
+
+.desktop-icon:hover .icon-videos .arrows,
+.desktop-icon:focus-visible .icon-videos .arrows {
+    animation-play-state: running;
+}
+
+@keyframes videos-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(34px);
+    }
+}
+
+:root[data-motion="reduced"] .icon-videos .arrows {
+    animation: none;
+}

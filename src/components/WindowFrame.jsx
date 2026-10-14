@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import AppIcon from './AppIcon'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const MIN_WIDTH = 320
 const MIN_HEIGHT = 220
@@ -13,12 +14,13 @@ export default function WindowFrame({
     const ref = useRef(null)
     const drag = useRef(null)
     const resize = useRef(null)
+    const isMobile = useIsMobile()
 
     const size = win.size ?? { width: app.width, height: app.height }
 
     /* ---------- dragging ---------- */
     const handleDown = (e) => {
-        if (e.button !== 0 || e.target.closest('button')) return
+        if (isMobile || e.button !== 0 || e.target.closest('button')) return
         const el = ref.current
         e.currentTarget.setPointerCapture(e.pointerId)
         drag.current = {
@@ -56,7 +58,7 @@ export default function WindowFrame({
 
     /* ---------- resizing ---------- */
     const startResize = (dir) => (e) => {
-        if (e.button !== 0) return
+        if (isMobile || e.button !== 0) return
         const el = ref.current
         e.currentTarget.setPointerCapture(e.pointerId)
         resize.current = {
@@ -104,17 +106,22 @@ export default function WindowFrame({
         'aria-hidden': true,
     })
 
+    const style = isMobile
+        ? { zIndex: win.zIndex }
+        : {
+            left: win.position.x,
+            top: win.position.y,
+            width: size.width,
+            height: size.height,
+            zIndex: win.zIndex,
+        }
+
     return (
         <section
             ref={ref}
-            className={`window${isActive ? ' window--active' : ''}${win.minimized ? ' window--minimized' : ''}`}
-            style={{
-                left: win.position.x,
-                top: win.position.y,
-                width: size.width,
-                height: size.height,
-                zIndex: win.zIndex,
-            }}
+            className={`window${isActive ? ' window--active' : ''}${win.minimized ? ' window--minimized' : ''}${isMobile ? ' window--mobile' : ''
+                }`}
+            style={style}
             onPointerDown={() => onFocus(app.id)}
             aria-label={app.name}
         >
@@ -148,9 +155,13 @@ export default function WindowFrame({
 
             <div className="window__content">{children}</div>
 
-            <div {...resizeHandle('e')} />
-            <div {...resizeHandle('s')} />
-            <div {...resizeHandle('se')} />
+            {!isMobile && (
+                <>
+                    <div {...resizeHandle('e')} />
+                    <div {...resizeHandle('s')} />
+                    <div {...resizeHandle('se')} />
+                </>
+            )}
         </section>
     )
 }

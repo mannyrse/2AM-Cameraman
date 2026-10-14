@@ -114,3 +114,25 @@
     height: 16px;
     cursor: nwse-resize;
 }
+
+@media (max-width: 600px) {
+    .window--mobile {
+        inset: 0 0 var(--taskbar-height) 0;
+        width: auto;
+        height: auto;
+        max-width: none;
+        max-height: none;
+        border: none;
+        border-radius: 0;
+    }
+
+    .window__titlebar {
+        height: 48px;
+        cursor: default;
+    }
+
+    .window__btn {
+        width: 40px;
+        height: 40px;
+    }
+}

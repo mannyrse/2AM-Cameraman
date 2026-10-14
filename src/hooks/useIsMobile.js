@@ -1,0 +1,13 @@
+import { useSyncExternalStore } from 'react'
+
+const QUERY = '(max-width: 600px)'
+
+const subscribe = (callback) => {
+    const mql = window.matchMedia(QUERY)
+    mql.addEventListener('change', callback)
+    return () => mql.removeEventListener('change', callback)
+}
+
+export function useIsMobile() {
+    return useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false)
+}

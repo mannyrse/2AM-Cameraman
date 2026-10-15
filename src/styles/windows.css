@@ -136,3 +136,13 @@
         height: 40px;
     }
 }
+
+.window--maximized {
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+}
+
+.window--maximized .window__titlebar {
+    cursor: default;
+}

@@ -9,18 +9,19 @@ const getTaskbarHeight = () =>
     parseInt(getComputedStyle(document.documentElement).getPropertyValue('--taskbar-height'), 10)
 
 export default function WindowFrame({
-    app, win, isActive, onFocus, onClose, onMinimize, onMove, onResize, children,
+    app, win, isActive, onFocus, onClose, onMinimize, onMaximize, onMove, onResize, children,
 }) {
     const ref = useRef(null)
     const drag = useRef(null)
     const resize = useRef(null)
     const isMobile = useIsMobile()
+    const maximized = !!win.maximized && !isMobile
 
     const size = win.size ?? { width: app.width, height: app.height }
 
     /* ---------- dragging ---------- */
     const handleDown = (e) => {
-        if (isMobile || e.button !== 0 || e.target.closest('button')) return
+        if (isMobile || maximized || e.button !== 0 || e.target.closest('button')) return
         const el = ref.current
         e.currentTarget.setPointerCapture(e.pointerId)
         drag.current = {
@@ -56,9 +57,14 @@ export default function WindowFrame({
         onMove(app.id, { x: d.x, y: d.y })
     }
 
+    const handleDoubleClick = (e) => {
+        if (isMobile || e.target.closest('button')) return
+        onMaximize(app.id)
+    }
+
     /* ---------- resizing ---------- */
     const startResize = (dir) => (e) => {
-        if (isMobile || e.button !== 0) return
+        if (isMobile || maximized || e.button !== 0) return
         const el = ref.current
         e.currentTarget.setPointerCapture(e.pointerId)
         resize.current = {
@@ -106,21 +112,32 @@ export default function WindowFrame({
         'aria-hidden': true,
     })
 
-    const style = isMobile
-        ? { zIndex: win.zIndex }
-        : {
+    let style
+    if (isMobile) {
+        style = { zIndex: win.zIndex }
+    } else if (maximized) {
+        style = {
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: 'calc(100% - var(--taskbar-height))',
+            zIndex: win.zIndex,
+        }
+    } else {
+        style = {
             left: win.position.x,
             top: win.position.y,
             width: size.width,
             height: size.height,
             zIndex: win.zIndex,
         }
+    }
 
     return (
         <section
             ref={ref}
             className={`window${isActive ? ' window--active' : ''}${win.minimized ? ' window--minimized' : ''}${isMobile ? ' window--mobile' : ''
-                }`}
+                }${maximized ? ' window--maximized' : ''}`}
             style={style}
             onPointerDown={() => onFocus(app.id)}
             aria-label={app.name}
@@ -131,6 +148,7 @@ export default function WindowFrame({
                 onPointerMove={handleMove}
                 onPointerUp={handleUp}
                 onPointerCancel={handleUp}
+                onDoubleClick={handleDoubleClick}
             >
                 <span className="window__title">
                     <AppIcon app={app} size={16} /> {app.name}
@@ -143,6 +161,15 @@ export default function WindowFrame({
                     >
                         ‒
                     </button>
+                    {!isMobile && (
+                        <button
+                            className="window__btn"
+                            aria-label={`${maximized ? 'Restore' : 'Maximize'} ${app.name}`}
+                            onClick={() => onMaximize(app.id)}
+                        >
+                            {maximized ? '❐' : '□'}
+                        </button>
+                    )}
                     <button
                         className="window__btn window__btn--close"
                         aria-label={`Close ${app.name}`}
@@ -155,7 +182,7 @@ export default function WindowFrame({
 
             <div className="window__content">{children}</div>
 
-            {!isMobile && (
+            {!isMobile && !maximized && (
                 <>
                     <div {...resizeHandle('e')} />
                     <div {...resizeHandle('s')} />

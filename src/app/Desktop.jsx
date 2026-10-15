@@ -9,7 +9,7 @@ import { apps } from './desktopConfig'
 export default function Desktop({ ready = true }) {
     const {
         windows, activeAppId, openApp, closeApp, focusApp,
-        moveApp, resizeApp, minimizeApp, toggleApp,
+        moveApp, resizeApp, minimizeApp, maximizeApp, toggleApp,
     } = useWindowManager()
 
     const videoRef = useRef(null)
@@ -75,6 +75,7 @@ export default function Desktop({ ready = true }) {
                         onMove={moveApp}
                         onResize={resizeApp}
                         onMinimize={minimizeApp}
+                        onMaximize={maximizeApp}
                     >
                         {app.Component ? <app.Component /> : <p>{app.name} content coming soon.</p>}
                     </WindowFrame>

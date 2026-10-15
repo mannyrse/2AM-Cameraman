@@ -64,6 +64,16 @@ function reducer(state, action) {
                 ),
             }
 
+        case 'maximize': {
+            const z = state.topZ + 1
+            return {
+                topZ: z,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, maximized: !w.maximized, zIndex: z } : w
+                ),
+            }
+        }
+
         case 'minimize':
             return {
                 ...state,
@@ -119,6 +129,7 @@ export function useWindowManager() {
         focusApp: (appId) => dispatch({ type: 'focus', appId }),
         moveApp: (appId, position) => dispatch({ type: 'move', appId, position }),
         resizeApp: (appId, size) => dispatch({ type: 'resize', appId, size }),
+        maximizeApp: (appId) => dispatch({ type: 'maximize', appId }),
         minimizeApp: (appId) => dispatch({ type: 'minimize', appId }),
         toggleApp: (appId) => dispatch({ type: 'toggle', appId }),
         closeApp: (appId) => dispatch({ type: 'close', appId }),

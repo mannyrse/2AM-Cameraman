@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 const KEY = 'motion'
+const listeners = new Set()
 
-function initial() {
+function read() {
     try {
         const saved = localStorage.getItem(KEY)
         if (saved === 'reduced' || saved === 'full') return saved
@@ -12,21 +13,28 @@ function initial() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced' : 'full'
 }
 
-export function useMotion() {
-    const [motion, setMotionState] = useState(initial)
+let current = read()
+document.documentElement.dataset.motion = current
 
-    useEffect(() => {
-        document.documentElement.dataset.motion = motion
-    }, [motion])
+export const getMotion = () => current
 
-    const setMotion = (value) => {
-        setMotionState(value)
-        try {
-            localStorage.setItem(KEY, value) // only saved when the visitor chooses
-        } catch {
-            /* ignore */
-        }
+export function setMotion(value) {
+    current = value
+    document.documentElement.dataset.motion = value
+    try {
+        localStorage.setItem(KEY, value) // only saved when the visitor chooses
+    } catch {
+        /* ignore */
     }
+    listeners.forEach((l) => l())
+}
 
+const subscribe = (cb) => {
+    listeners.add(cb)
+    return () => listeners.delete(cb)
+}
+
+export function useMotion() {
+    const motion = useSyncExternalStore(subscribe, getMotion)
     return [motion, setMotion]
 }

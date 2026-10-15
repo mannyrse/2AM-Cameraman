@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { getMotion } from '../hooks/useMotion'
 
 const KEY = 'introSeen'
 const FADE_MS = 700
 const START_TIMEOUT_MS = 4000 // give up if the video hasn't started playing
 
 export function shouldSkipIntro() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true
+    if (getMotion() === 'reduced') return true
     try {
         return sessionStorage.getItem(KEY) === '1'
     } catch {

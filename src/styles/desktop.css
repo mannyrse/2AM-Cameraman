@@ -13,12 +13,12 @@
     z-index: var(--z-wallpaper);
 }
 
-.desktop__overlay {
+/* .desktop__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, rgba(11, 16, 32, .25), rgba(11, 16, 32, .55));
     z-index: var(--z-wallpaper);
-}
+} */
 
 .desktop__icons {
     position: absolute;
@@ -323,4 +323,28 @@
 .desktop-icon:hover .icon-about .head,
 .desktop-icon:focus-visible .icon-about .head {
     transform: rotate(7deg);
+}
+
+.icon-motion .waves {
+    animation: motion-scroll 1.6s linear infinite;
+    animation-play-state: paused;
+}
+
+.desktop-icon:hover .icon-motion .waves,
+.desktop-icon:focus-visible .icon-motion .waves {
+    animation-play-state: running;
+}
+
+@keyframes motion-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-60px);
+    }
+}
+
+:root[data-motion="reduced"] .icon-motion .waves {
+    animation: none;
 }

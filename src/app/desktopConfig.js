@@ -7,6 +7,7 @@ import AboutApp from '../apps/AboutApp'
 import PicturesApp from '../apps/PicturesApp'
 import VideosApp from '../apps/VideosApp'
 import ContactApp from '../apps/ContactApp'
+import ResumeApp from '../apps/ResumeApp'
 
 export const apps = [
     { id: 'about', name: 'About Me', icon: '👤', Icon: AboutIcon, Component: AboutApp, width: 640, height: 480 },
@@ -14,4 +15,5 @@ export const apps = [
     { id: 'videos', name: 'Videos', icon: '🎬', Icon: VideosIcon, Component: VideosApp, width: 860, height: 600 },
     { id: 'contact', name: 'Contact', icon: '✉️', Icon: ContactIcon, Component: ContactApp, width: 480, height: 420 },
     { id: 'motion', name: 'Motion', icon: '🎞️', Icon: MotionIcon, toggle: true },
+    { id: 'resume', name: 'Resume', icon: '📄', Component: ResumeApp, width: 640, height: 560 },
 ]

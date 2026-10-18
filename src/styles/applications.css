@@ -331,15 +331,17 @@
 /* ---- featured view ---- */
 .video-stage {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 15rem);
+    grid-template-columns: minmax(0, calc(60vh * 16 / 9)) minmax(15rem, 1fr);
     gap: 20px 28px;
     align-items: start;
-    max-width: 72rem;
-    margin: 0 auto;
 }
 
 .video-stage--solo {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, calc(60vh * 16 / 9));
+}
+
+.video-stage__details {
+    max-width: 40rem;
 }
 
 .video-back {
@@ -359,7 +361,7 @@
 
 .video-stage__player {
     position: relative;
-    width: min(100%, calc(55vh * 16 / 9));
+    width: 100%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: #000;

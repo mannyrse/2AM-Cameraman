@@ -396,6 +396,14 @@
     border-top: 1px solid var(--border);
 }
 
+.video-stage__more-title {
+    margin: 0 0 14px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
 /* Narrow window: put the description under the title */
 @container (max-width: 560px) {
     .video-stage {

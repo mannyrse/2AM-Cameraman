@@ -83,7 +83,10 @@ export default function VideosApp() {
                 )}
 
                 {others.length > 0 && (
-                    <section className="video-stage__more" aria-label="More videos">
+                    <section className="video-stage__more" aria-labelledby="more-videos-heading">
+                        <h2 id="more-videos-heading" className="video-stage__more-title">
+                            More videos
+                        </h2>
                         <ul className="videos-grid videos-grid--small">
                             {others.map((v) => (
                                 <li key={v.id}>

@@ -6,7 +6,7 @@ import { useWindowManager } from '../hooks/useWindowManager'
 import { useMotion } from '../hooks/useMotion'
 import { apps } from './desktopConfig'
 
-export default function Desktop({ ready = true }) {
+export default function Desktop() {
     const {
         windows, activeAppId, openApp, closeApp, focusApp,
         moveApp, resizeApp, minimizeApp, maximizeApp, toggleApp,
@@ -48,19 +48,18 @@ export default function Desktop({ ready = true }) {
             />
             <div className="desktop__overlay" />
 
-            {ready && (
-                <nav className="desktop__icons" aria-label="Applications">
-                    {iconApps.map((app, i) => (
-                        <DesktopIcon
-                            key={app.id}
-                            app={app}
-                            index={i}
-                            pressed={app.toggle ? reduced : undefined}
-                            onOpen={activate}
-                        />
-                    ))}
-                </nav>
-            )}
+            <nav className="desktop__icons" aria-label="Applications">
+                {iconApps.map((app, i) => (
+                    <DesktopIcon
+                        key={app.id}
+                        app={app}
+                        index={i}
+                        pressed={app.toggle ? reduced : undefined}
+                        onOpen={activate}
+                    />
+                ))}
+            </nav>
+
 
             {windows.map((win) => {
                 const app = apps.find((a) => a.id === win.appId)

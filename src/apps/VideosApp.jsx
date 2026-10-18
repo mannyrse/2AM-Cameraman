@@ -1,50 +1,99 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { videos } from '../data/videos'
 
-function VideoCard({ video }) {
-    const [playing, setPlaying] = useState(false)
-
+function Thumb({ video, onSelect }) {
     return (
-        <li className="video-card">
-            <div className="video-card__media">
-                {playing ? (
-                    <iframe
-                        src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
-                        title={video.title}
-                        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-                        allowFullScreen
-                    />
-                ) : (
-                    <button
-                        className="video-card__play"
-                        aria-label={`Play ${video.title}`}
-                        onClick={() => setPlaying(true)}
-                    >
-                        <img
-                            src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
-                            alt=""
-                            loading="lazy"
-                        />
-                        <span className="video-card__icon" aria-hidden="true">▶</span>
-                    </button>
-                )}
-            </div>
-            <h2 className="video-card__title">{video.title}</h2>
-            <p className="video-card__desc">{video.description}</p>
-        </li>
+        <button
+            className="vthumb"
+            aria-label={`Play ${video.title}`}
+            onClick={() => onSelect(video.id)}
+        >
+            <span className="vthumb__media">
+                <img
+                    src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                    alt=""
+                    loading="lazy"
+                />
+                <span className="vthumb__icon" aria-hidden="true">▶</span>
+            </span>
+            <span className="vthumb__title">{video.title}</span>
+            <span className="vthumb__desc">{video.description}</span>
+        </button>
     )
 }
 
 export default function VideosApp() {
+    const [selectedId, setSelectedId] = useState(null)
+    const rootRef = useRef(null)
+    const video = videos.find((v) => v.id === selectedId)
+
+    // Start at the top of the window whenever the view changes
+    useEffect(() => {
+        rootRef.current?.closest('.window__content')?.scrollTo({ top: 0 })
+    }, [selectedId])
+
     if (videos.length === 0) {
         return <p className="gallery__empty">No videos yet. Add some in src/data/videos.js.</p>
     }
 
+    if (!video) {
+        return (
+            <div className="videos-app" ref={rootRef}>
+                <ul className="videos-grid">
+                    {videos.map((v) => (
+                        <li key={v.id}>
+                            <Thumb video={v} onSelect={setSelectedId} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
+    const others = videos.filter((v) => v.id !== video.id)
+    const hasDetails = video.details?.length > 0
+
     return (
-        <ul className="videos">
-            {videos.map((video) => (
-                <VideoCard key={video.id} video={video} />
-            ))}
-        </ul>
+        <div className="videos-app" ref={rootRef}>
+            <div className={`video-stage${hasDetails ? '' : ' video-stage--solo'}`}>
+                <button className="video-back" onClick={() => setSelectedId(null)}>
+                    ‹ All videos
+                </button>
+
+                <div className="video-stage__main">
+                    <div className="video-stage__player">
+                        <iframe
+                            key={video.id}
+                            src={`https://www.youtube-nocookie.com/embed/${video.id}?autoplay=1&rel=0`}
+                            title={video.title}
+                            allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                            allowFullScreen
+                        />
+                    </div>
+                    <h1 className="video-stage__title">{video.title}</h1>
+                    <p className="video-stage__sub">{video.description}</p>
+                </div>
+
+                {hasDetails && (
+                    <aside className="video-stage__details">
+                        {video.details.map((text, i) => (
+                            <p key={i}>{text}</p>
+                        ))}
+                    </aside>
+                )}
+
+                {others.length > 0 && (
+                    <section className="video-stage__more" aria-label="More videos">
+                        <ul className="videos-grid videos-grid--small">
+                            {others.map((v) => (
+                                <li key={v.id}>
+                                    <Thumb video={v} onSelect={setSelectedId} />
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                )}
+            </div>
+        </div>
     )
 }

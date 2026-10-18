@@ -19,6 +19,7 @@ export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
                             className={`taskbar__app${isActive ? ' taskbar__app--active' : ''}${win.minimized ? ' taskbar__app--minimized' : ''
                                 }`}
                             aria-pressed={isActive}
+                            data-taskbar-app={win.appId}
                             onClick={() => onToggle(win.appId)}
                         >
                             <AppIcon app={app} size={18} />

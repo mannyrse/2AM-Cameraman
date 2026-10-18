@@ -9,7 +9,8 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     overflow: hidden;
-    animation: window-in var(--dur) var(--ease) both;
+    animation: window-in var(--dur) var(--ease) backwards;
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
 }
 
 .window--active {
@@ -61,10 +62,6 @@
 
 .window__btn--close:hover {
     background: rgba(255, 90, 90, 0.35);
-}
-
-.window--minimized {
-    display: none;
 }
 
 .window__content {
@@ -145,4 +142,30 @@
 
 .window--maximized .window__titlebar {
     cursor: default;
+}
+
+/* Briefly applied while maximizing or restoring */
+.window--animating {
+    max-width: none;
+    max-height: none;
+    transition:
+        transform var(--dur) var(--ease),
+        opacity var(--dur) var(--ease),
+        left var(--dur) var(--ease),
+        top var(--dur) var(--ease),
+        width var(--dur) var(--ease),
+        height var(--dur) var(--ease),
+        border-radius var(--dur) var(--ease);
+}
+
+/* Shrinks toward the taskbar button; --min-x and --min-y are set by WindowFrame */
+.window--minimized {
+    opacity: 0;
+    transform: translate(var(--min-x, 0px), var(--min-y, 0px)) scale(0.2);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        transform var(--dur) var(--ease),
+        opacity var(--dur) var(--ease),
+        visibility 0s linear var(--dur);
 }

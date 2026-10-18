@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AppIcon from './AppIcon'
 import { useIsMobile } from '../hooks/useIsMobile'
 
@@ -16,6 +16,31 @@ export default function WindowFrame({
     const resize = useRef(null)
     const isMobile = useIsMobile()
     const maximized = !!win.maximized && !isMobile
+    const [animating, setAnimating] = useState(false)
+    const timer = useRef(null)
+
+    useEffect(() => () => clearTimeout(timer.current), [])
+
+    const toggleMaximize = () => {
+        setAnimating(true)
+        clearTimeout(timer.current)
+        timer.current = setTimeout(() => setAnimating(false), 300)
+        onMaximize(app.id)
+    }
+
+    // On minimize, aim the shrink animation at this app's taskbar button
+    useLayoutEffect(() => {
+        if (!win.minimized) return
+        const el = ref.current
+        const btn = document.querySelector(`[data-taskbar-app="${app.id}"]`)
+        if (!el || !btn) return
+        const parent = el.offsetParent.getBoundingClientRect()
+        const b = btn.getBoundingClientRect()
+        const dx = b.left + b.width / 2 - (parent.left + el.offsetLeft + el.offsetWidth / 2)
+        const dy = b.top + b.height / 2 - (parent.top + el.offsetTop + el.offsetHeight / 2)
+        el.style.setProperty('--min-x', `${dx}px`)
+        el.style.setProperty('--min-y', `${dy}px`)
+    }, [win.minimized, app.id])
 
     const size = win.size ?? { width: app.width, height: app.height }
 
@@ -59,7 +84,7 @@ export default function WindowFrame({
 
     const handleDoubleClick = (e) => {
         if (isMobile || e.target.closest('button')) return
-        onMaximize(app.id)
+        toggleMaximize()
     }
 
     /* ---------- resizing ---------- */
@@ -133,11 +158,21 @@ export default function WindowFrame({
         }
     }
 
+    const className = [
+        'window',
+        isActive && 'window--active',
+        win.minimized && 'window--minimized',
+        isMobile && 'window--mobile',
+        maximized && 'window--maximized',
+        animating && 'window--animating',
+    ]
+        .filter(Boolean)
+        .join(' ')
+
     return (
         <section
             ref={ref}
-            className={`window${isActive ? ' window--active' : ''}${win.minimized ? ' window--minimized' : ''}${isMobile ? ' window--mobile' : ''
-                }${maximized ? ' window--maximized' : ''}`}
+            className={className}
             style={style}
             onPointerDown={() => onFocus(app.id)}
             aria-label={app.name}
@@ -165,7 +200,7 @@ export default function WindowFrame({
                         <button
                             className="window__btn"
                             aria-label={`${maximized ? 'Restore' : 'Maximize'} ${app.name}`}
-                            onClick={() => onMaximize(app.id)}
+                            onClick={toggleMaximize}
                         >
                             {maximized ? '❐' : '□'}
                         </button>

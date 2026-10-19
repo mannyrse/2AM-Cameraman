@@ -10,7 +10,7 @@ export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
             <span className="taskbar__brand">2AM Cameraman</span>
 
             <div className="taskbar__apps">
-                {windows.map((win) => {
+                {windows.filter((w) => !w.closing).map((win) => {
                     const app = apps.find((a) => a.id === win.appId)
                     const isActive = win.appId === activeAppId
                     return (

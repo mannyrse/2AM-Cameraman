@@ -1,10 +1,11 @@
 import { useReducer } from 'react'
 
 const Z_BASE = 100 // matches --z-windows in tokens.css
+const CLOSE_MS = 160
 
 const getActiveId = (windows) =>
     windows
-        .filter((w) => !w.minimized)
+        .filter((w) => !w.minimized && !w.closing)
         .reduce((top, w) => (!top || w.zIndex > top.zIndex ? w : top), null)?.appId
 
 const initialState = { topZ: Z_BASE, windows: [] }
@@ -20,8 +21,7 @@ function reducer(state, action) {
                 return {
                     topZ: z,
                     windows: state.windows.map((w) =>
-                        w.appId === action.appId ? { ...w, zIndex: z, minimized: false } : w
-                    ),
+                        w.appId === action.appId ? { ...w, zIndex: z, minimized: false, closing: false } : w),
                 }
             }
 
@@ -106,12 +106,19 @@ function reducer(state, action) {
             }
         }
 
+        case 'closing':
+            return {
+                ...state,
+                windows: state.windows.map((w) =>
+                    w.appId === action.appId ? { ...w, closing: true } : w
+                ),
+            }
+
         case 'close':
             return {
                 ...state,
-                windows: state.windows.filter((w) => w.appId !== action.appId),
+                windows: state.windows.filter((w) => !(w.appId === action.appId && w.closing)),
             }
-
         default:
             return state
     }
@@ -132,6 +139,9 @@ export function useWindowManager() {
         maximizeApp: (appId) => dispatch({ type: 'maximize', appId }),
         minimizeApp: (appId) => dispatch({ type: 'minimize', appId }),
         toggleApp: (appId) => dispatch({ type: 'toggle', appId }),
-        closeApp: (appId) => dispatch({ type: 'close', appId }),
+        closeApp: (appId) => {
+            dispatch({ type: 'closing', appId })
+            setTimeout(() => dispatch({ type: 'close', appId }), CLOSE_MS)
+        },
     }
 }

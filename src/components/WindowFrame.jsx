@@ -165,6 +165,7 @@ export default function WindowFrame({
         isMobile && 'window--mobile',
         maximized && 'window--maximized',
         animating && 'window--animating',
+        win.closing && 'window--closing',
     ]
         .filter(Boolean)
         .join(' ')

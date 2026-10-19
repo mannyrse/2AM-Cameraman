@@ -169,3 +169,15 @@
         opacity var(--dur) var(--ease),
         visibility 0s linear var(--dur);
 }
+
+.window--closing {
+    animation: window-out var(--dur-fast) var(--ease) forwards;
+    pointer-events: none;
+}
+
+@keyframes window-out {
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}

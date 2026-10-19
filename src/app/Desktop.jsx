@@ -41,6 +41,7 @@ export default function Desktop() {
                 ref={videoRef}
                 className="desktop__wallpaper"
                 src="/videos/waves.mp4"
+                poster="/waves-poster.png"
                 autoPlay
                 muted
                 loop

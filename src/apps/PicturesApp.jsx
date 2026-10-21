@@ -20,7 +20,9 @@ export default function PicturesApp() {
                             onClick={() => setOpenIndex(i)}
                         >
                             <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
-                        </button>
+                            <span className="gallery__title" aria-hidden="true">
+                                <span className="gallery__title-text">{photo.title}</span>
+                            </span>                        </button>
                     </li>
                 ))}
             </ul>

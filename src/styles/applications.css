@@ -151,6 +151,7 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     cursor: pointer;
+    position: relative;
 }
 
 .gallery__item img {
@@ -158,11 +159,13 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform var(--dur) var(--ease);
+    transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
 }
 
-.gallery__item:hover img {
+.gallery__item:hover img,
+.gallery__item:focus-visible img {
     transform: scale(1.05);
+    filter: brightness(0.6);
 }
 
 .gallery__empty {
@@ -241,6 +244,61 @@
 
     .gallery {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.gallery__title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+    opacity: 0;
+    transform: translateY(calc(-50% + 8px));
+    pointer-events: none;
+    transition:
+        opacity var(--dur) var(--ease),
+        transform var(--dur) var(--ease);
+}
+
+.gallery__title-text {
+    display: block;
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+        opacity var(--dur) var(--ease) 60ms,
+        transform var(--dur) var(--ease) 60ms;
+}
+
+.gallery__item:hover .gallery__title,
+.gallery__item:focus-visible .gallery__title {
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.gallery__item:hover .gallery__title-text,
+.gallery__item:focus-visible .gallery__title-text {
+    opacity: 1;
+    transform: none;
+}
+
+/* Touch screens have no hover, so show the title without animation */
+@media (hover: none) {
+    .gallery__title {
+        opacity: 1;
+        transform: translateY(-50%);
+    }
+
+    .gallery__title-text {
+        opacity: 1;
+        transform: none;
     }
 }
 

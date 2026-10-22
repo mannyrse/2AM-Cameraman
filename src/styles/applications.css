@@ -676,3 +676,216 @@
 .project__link:hover {
     text-decoration: underline;
 }
+
+/* Paint App  */
+
+.window__content:has(.paint) {
+    padding: 10px;
+}
+
+.paint {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+/* ---- narrow layout (phones, small windows): fixed 2-column grid ---- */
+.paint__bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "tools   history"
+        "sizes   actions"
+        "palette palette";
+    gap: 8px;
+}
+
+.paint__group {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 6px;
+}
+
+.paint__group--tools {
+    grid-area: tools;
+}
+
+.paint__group--sizes {
+    grid-area: sizes;
+}
+
+.paint__group--history {
+    grid-area: history;
+}
+
+.paint__group--actions {
+    grid-area: actions;
+}
+
+.paint__btn {
+    min-width: 0;
+    min-height: 40px;
+    padding: 0 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.paint__btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.paint__btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.paint__btn[aria-pressed="true"] {
+    background: rgba(127, 178, 255, 0.18);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.paint__btn--size {
+    display: grid;
+    place-items: center;
+    padding: 0;
+}
+
+.paint__dot {
+    display: block;
+    background: currentColor;
+}
+
+.paint__btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0b1020;
+    font-weight: 600;
+}
+
+.paint__btn--primary:hover:not(:disabled) {
+    background: var(--accent);
+    filter: brightness(1.1);
+}
+
+.paint__btn--danger {
+    background: #a83a3a;
+    border-color: #a83a3a;
+}
+
+.paint__btn--danger:hover:not(:disabled) {
+    background: #c04545;
+}
+
+.paint__palette {
+    grid-area: palette;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.paint__swatch {
+    width: 100%;
+    height: 32px;
+    padding: 0;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform var(--dur-fast);
+}
+
+.paint__swatch:hover {
+    transform: scale(1.05);
+}
+
+.paint__swatch[aria-pressed="true"] {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---- wide layout: two fixed rows ---- */
+@container (min-width: 700px) {
+    .paint__bar {
+        grid-template-columns: auto auto auto 1fr;
+        grid-template-areas:
+            "tools   sizes  history ."
+            "palette palette palette actions";
+        gap: 10px 14px;
+        align-items: center;
+    }
+
+    .paint__group {
+        display: flex;
+    }
+
+    .paint__group--actions {
+        justify-self: end;
+    }
+
+    .paint__btn {
+        min-height: 34px;
+        padding: 0 14px;
+    }
+
+    .paint__btn--size {
+        width: 38px;
+        padding: 0;
+    }
+
+    .paint__palette {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .paint__swatch {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+}
+
+.paint__confirm {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    padding: 10px 12px;
+    background: rgba(255, 90, 90, 0.12);
+    border: 1px solid rgba(255, 90, 90, 0.4);
+    border-radius: var(--radius);
+    font-size: 14px;
+}
+
+.paint__confirm span {
+    flex: 1 1 200px;
+}
+
+.paint__stage {
+    flex: 1;
+    min-height: 220px;
+    container-type: size;
+    display: grid;
+    place-items: center;
+}
+
+.paint__canvas {
+    display: block;
+    width: min(100cqw, calc(100cqh * var(--ratio)));
+    height: auto;
+    aspect-ratio: var(--ratio);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    image-rendering: pixelated;
+    cursor: crosshair;
+    touch-action: none;
+}

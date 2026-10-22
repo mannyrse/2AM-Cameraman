@@ -9,6 +9,7 @@ import VideosApp from '../apps/VideosApp'
 import ContactApp from '../apps/ContactApp'
 import ResumeApp from '../apps/ResumeApp'
 import ProjectsApp from '../apps/Projectsapp'
+import PaintApp from '../apps/PaintApp'
 
 export const apps = [
     { id: 'about', name: 'About Me', icon: '👤', Icon: AboutIcon, Component: AboutApp, width: 640, height: 480 },
@@ -18,4 +19,4 @@ export const apps = [
     { id: 'motion', name: 'Motion', icon: '🎞️', Icon: MotionIcon, toggle: true },
     { id: 'resume', name: 'Resume', icon: '📄', Component: ResumeApp, width: 640, height: 560 },
     { id: 'projects', name: 'Projects', icon: '🗂️', Component: ProjectsApp, width: 760, height: 560 },
-]
+    { id: 'paint', name: 'MXPaint', icon: '🎨', Component: PaintApp, width: 700, height: 620 },]

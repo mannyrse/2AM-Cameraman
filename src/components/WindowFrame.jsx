@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AppIcon from './AppIcon'
+import ErrorBoundary from './ErrorBoundary'
 import { useIsMobile } from '../hooks/useIsMobile'
 
 const MIN_WIDTH = 320
@@ -216,7 +217,9 @@ export default function WindowFrame({
                 </div>
             </header>
 
-            <div className="window__content">{children}</div>
+            <div className="window__content">
+                <ErrorBoundary name={app.name}>{children}</ErrorBoundary>
+            </div>
 
             {!isMobile && !maximized && (
                 <>

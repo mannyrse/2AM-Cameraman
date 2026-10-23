@@ -889,3 +889,37 @@
     cursor: crosshair;
     touch-action: none;
 }
+
+/* Error fallback */
+.error-fallback {
+    height: 100%;
+    display: grid;
+    place-content: center;
+    gap: 8px;
+    padding: 24px;
+    text-align: center;
+}
+
+.error-fallback__title {
+    font-weight: 600;
+}
+
+.error-fallback__text {
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.error-fallback__button {
+    justify-self: center;
+    margin-top: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+.error-fallback__button:hover {
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+}

@@ -19,6 +19,8 @@ export default function WindowFrame({
     const maximized = !!win.maximized && !isMobile
     const [animating, setAnimating] = useState(false)
     const timer = useRef(null)
+    const opener = useRef(null)
+    const firstRun = useRef(true)
 
     useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -28,6 +30,46 @@ export default function WindowFrame({
         timer.current = setTimeout(() => setAnimating(false), 300)
         onMaximize(app.id)
     }
+
+    /* ---------- keyboard focus ---------- */
+    // Open: remember what had focus, then move focus into the window.
+    // Close (unmount): give focus back to the opener, or the desktop icon.
+    useEffect(() => {
+        const el = ref.current
+        opener.current = document.activeElement
+        el?.focus({ preventScroll: true })
+
+        return () => {
+            const active = document.activeElement
+            // Don't steal focus if the user already moved somewhere else
+            if (active && active !== document.body && !el?.contains(active)) return
+
+            const target = opener.current
+            if (target && target !== document.body && target.isConnected) {
+                target.focus({ preventScroll: true })
+            } else {
+                document
+                    .querySelector(`[data-desktop-app="${app.id}"]`)
+                    ?.focus({ preventScroll: true })
+            }
+        }
+    }, [app.id])
+
+    // Minimize: send focus to this app's taskbar button.
+    // Restore: bring focus back into the window.
+    useEffect(() => {
+        if (firstRun.current) {
+            firstRun.current = false
+            return
+        }
+        if (win.minimized) {
+            document
+                .querySelector(`[data-taskbar-app="${app.id}"]`)
+                ?.focus({ preventScroll: true })
+        } else {
+            ref.current?.focus({ preventScroll: true })
+        }
+    }, [win.minimized, app.id])
 
     // On minimize, aim the shrink animation at this app's taskbar button
     useLayoutEffect(() => {
@@ -176,6 +218,7 @@ export default function WindowFrame({
             ref={ref}
             className={className}
             style={style}
+            tabIndex={-1}
             onPointerDown={() => onFocus(app.id)}
             aria-label={app.name}
         >

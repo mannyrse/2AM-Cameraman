@@ -5,6 +5,7 @@ export default function DesktopIcon({ app, onOpen, index, pressed }) {
         <button
             className="desktop-icon"
             style={{ '--i': index }}
+            data-desktop-app={app.id}
             aria-pressed={pressed}
             onClick={() => onOpen(app.id)}
         >

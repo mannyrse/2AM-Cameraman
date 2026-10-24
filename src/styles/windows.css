@@ -181,3 +181,7 @@
         transform: scale(0.95);
     }
 }
+
+.window:focus {
+    outline: none;
+}

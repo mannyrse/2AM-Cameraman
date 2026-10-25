@@ -315,78 +315,52 @@
 
 /* Paint Icon  */
 
-/* MXPaint icon: the brush swings down in an arc, leaving a stroke of paint
-   that fades away. Plays once per hover and ends back at rest. */
+/* Hover swings the brush down and paints a stroke. Moving off reverses it smoothly. */
 .icon-paint .paint-brush {
     transform-box: view-box;
     transform-origin: 340px 127px;
+    transition: transform 0.35s ease-in-out;
 }
 
 .icon-paint .paint-trail {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     opacity: 0;
+    /* opacity switches off only after the stroke has fully retracted */
+    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0.35s;
 }
 
 .desktop-icon:hover .icon-paint .paint-brush,
 .desktop-icon:focus-visible .icon-paint .paint-brush {
-    animation: paint-swing 1s ease-in-out;
+    transform: rotate(-28deg);
 }
 
 .desktop-icon:hover .icon-paint .paint-trail,
 .desktop-icon:focus-visible .icon-paint .paint-trail {
-    animation: paint-stroke 1s ease-in-out;
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0s;
 }
 
-@keyframes paint-swing {
-    0% {
-        transform: rotate(0);
-    }
-
-    45% {
-        transform: rotate(-28deg);
-    }
-
-    55% {
-        transform: rotate(-28deg);
-    }
-
-    100% {
-        transform: rotate(0);
-    }
+/* Motion off: the brush stays still and visible, and no paint stroke appears */
+:root[data-motion="reduced"] .icon-paint .paint-brush {
+    transition: none !important;
+    transform: none !important;
 }
 
-@keyframes paint-stroke {
-    0% {
-        stroke-dashoffset: 100;
-        opacity: 1;
-    }
-
-    45% {
-        stroke-dashoffset: 0;
-        opacity: 1;
-    }
-
-    60% {
-        stroke-dashoffset: 0;
-        opacity: 1;
-    }
-
-    100% {
-        stroke-dashoffset: 0;
-        opacity: 0;
-    }
-}
-
-:root[data-motion="reduced"] .icon-paint .paint-brush,
 :root[data-motion="reduced"] .icon-paint .paint-trail {
-    animation: none !important;
+    transition: none !important;
+    opacity: 0 !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .icon-paint .paint-brush {
+        transition: none !important;
+        transform: none !important;
+    }
 
-    .icon-paint .paint-brush,
     .icon-paint .paint-trail {
-        animation: none !important;
+        transition: none !important;
+        opacity: 0 !important;
     }
 }

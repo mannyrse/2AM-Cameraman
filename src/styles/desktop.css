@@ -312,3 +312,81 @@
 :root[data-motion="reduced"] .icon-motion .waves {
     animation: none;
 }
+
+/* Paint Icon  */
+
+/* MXPaint icon: the brush swings down in an arc, leaving a stroke of paint
+   that fades away. Plays once per hover and ends back at rest. */
+.icon-paint .paint-brush {
+    transform-box: view-box;
+    transform-origin: 340px 127px;
+}
+
+.icon-paint .paint-trail {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+}
+
+.desktop-icon:hover .icon-paint .paint-brush,
+.desktop-icon:focus-visible .icon-paint .paint-brush {
+    animation: paint-swing 1s ease-in-out;
+}
+
+.desktop-icon:hover .icon-paint .paint-trail,
+.desktop-icon:focus-visible .icon-paint .paint-trail {
+    animation: paint-stroke 1s ease-in-out;
+}
+
+@keyframes paint-swing {
+    0% {
+        transform: rotate(0);
+    }
+
+    45% {
+        transform: rotate(-28deg);
+    }
+
+    55% {
+        transform: rotate(-28deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+@keyframes paint-stroke {
+    0% {
+        stroke-dashoffset: 100;
+        opacity: 1;
+    }
+
+    45% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    60% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+}
+
+:root[data-motion="reduced"] .icon-paint .paint-brush,
+:root[data-motion="reduced"] .icon-paint .paint-trail {
+    animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .icon-paint .paint-brush,
+    .icon-paint .paint-trail {
+        animation: none !important;
+    }
+}

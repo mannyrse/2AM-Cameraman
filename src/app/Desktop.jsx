@@ -61,7 +61,6 @@ export default function Desktop() {
                 ))}
             </nav>
 
-
             {windows.map((win) => {
                 const app = apps.find((a) => a.id === win.appId)
                 return (
@@ -82,7 +81,14 @@ export default function Desktop() {
                 )
             })}
 
-            <Taskbar windows={windows} apps={apps} activeAppId={activeAppId} onToggle={toggleApp} />
+            <Taskbar
+                windows={windows}
+                apps={apps}
+                menuApps={iconApps}
+                activeAppId={activeAppId}
+                onToggle={toggleApp}
+                onLaunch={activate}
+            />
         </div>
     )
 }

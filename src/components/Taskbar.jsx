@@ -1,12 +1,15 @@
 import { useClock } from '../hooks/useClock'
 import AppIcon from './AppIcon'
+import StartMenu from './StartMenu'
 
-export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
+export default function Taskbar({ windows, apps, menuApps, activeAppId, onToggle, onLaunch }) {
     const now = useClock()
     const time = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
 
     return (
         <footer className="taskbar">
+            <StartMenu apps={menuApps} onOpen={onLaunch} />
+
             <span className="taskbar__brand">2AM Cameraman</span>
 
             <div className="taskbar__apps">
@@ -16,8 +19,7 @@ export default function Taskbar({ windows, apps, activeAppId, onToggle }) {
                     return (
                         <button
                             key={win.appId}
-                            className={`taskbar__app${isActive ? ' taskbar__app--active' : ''}${win.minimized ? ' taskbar__app--minimized' : ''
-                                }`}
+                            className={`taskbar__app${isActive ? ' taskbar__app--active' : ''}${win.minimized ? ' taskbar__app--minimized' : ''}`}
                             aria-pressed={isActive}
                             data-taskbar-app={win.appId}
                             onClick={() => onToggle(win.appId)}

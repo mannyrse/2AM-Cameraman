@@ -13,6 +13,7 @@ export const projects = [
         overview:
             'Placeholder: a website that was supposed to be made four years ago but is finally seeing substantial progress now.',
         link: { label: 'View on Instagram', href: 'https://instagram.com/your-handle' },
+        video: { src: '/videos/projects/moon.mp4' },
     },
     {
         id: 'miku',
@@ -24,5 +25,7 @@ export const projects = [
         summary: 'created for the accountability bot.',
         overview:
             'Placeholder: original artist of the piece.',
+        video: { src: '/videos/projects/moon.mp4' },
+
     },
 ]

@@ -15,7 +15,20 @@ export default function ProjectsApp() {
                 <button className="project__back" onClick={() => setSelectedId(null)}>
                     ‹ All projects
                 </button>
-                <img className="project__cover" src={project.cover} alt="" />
+                {project.video ? (
+                    <video
+                        key={project.id}
+                        className="project__video"
+                        src={project.video.src}
+                        poster={project.cover}
+                        controls
+                        playsInline
+                        preload="metadata"
+                        aria-label={`${project.title} video`}
+                    />
+                ) : (
+                    <img className="project__cover" src={project.cover} alt="" />
+                )}
                 <h1 className="project__title">{project.title}</h1>
                 <p className="project__meta">
                     {project.role} · {project.date}
@@ -41,6 +54,7 @@ export default function ProjectsApp() {
                 <li key={p.id}>
                     <button className="project-card" onClick={() => setSelectedId(p.id)}>
                         <img src={p.cover} alt="" loading="lazy" decoding="async" />
+                        {p.video && <span className="project-card__badge">▶ Video</span>}
                         <span className="project-card__title">{p.title}</span>
                         <span className="project-card__summary">{p.summary}</span>
                     </button>

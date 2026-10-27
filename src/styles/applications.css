@@ -677,6 +677,33 @@
     text-decoration: underline;
 }
 
+.project__video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 60vh;
+    object-fit: contain;
+    background: #000;
+    border-radius: 10px;
+}
+
+.project-card {
+    position: relative;
+}
+
+.project-card__badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(11, 16, 32, 0.8);
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.4;
+    pointer-events: none;
+}
+
 /* Paint App  */
 
 .window__content:has(.paint) {

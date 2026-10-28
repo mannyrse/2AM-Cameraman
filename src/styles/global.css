@@ -29,9 +29,9 @@ button {
     outline-offset: 2px;
 }
 
-:root[data-motion="reduced"] *,
-:root[data-motion="reduced"] *::before,
-:root[data-motion="reduced"] *::after {
+:root[data-motion="reduced"] :not(.arrows):not(.rays):not(.waves),
+:root[data-motion="reduced"] :not(.arrows):not(.rays):not(.waves)::before,
+:root[data-motion="reduced"] :not(.arrows):not(.rays):not(.waves)::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
 }

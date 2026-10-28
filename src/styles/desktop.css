@@ -1,3 +1,5 @@
+/* Desktop  */
+
 .desktop {
     position: relative;
     height: 100%;
@@ -12,13 +14,6 @@
     object-fit: cover;
     z-index: var(--z-wallpaper);
 }
-
-/* .desktop__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(11, 16, 32, .25), rgba(11, 16, 32, .55));
-    z-index: var(--z-wallpaper);
-} */
 
 .desktop__icons {
     position: absolute;
@@ -49,7 +44,8 @@
     transition: background var(--dur-fast), border-color var(--dur-fast);
 }
 
-.desktop-icon:hover {
+.desktop-icon:hover,
+.desktop-icon:focus-visible {
     background: rgba(255, 255, 255, .1);
     border-color: var(--border);
 }
@@ -80,6 +76,8 @@
         transform: none;
     }
 }
+
+/* Taskbar  */
 
 .taskbar {
     position: absolute;
@@ -143,15 +141,7 @@
     opacity: 0.6;
 }
 
-@media (max-width: 600px) {
-    .taskbar__app-name {
-        display: none;
-    }
-
-    .taskbar__brand {
-        display: none;
-    }
-}
+/* Shared icon helpers  */
 
 .app-icon {
     display: block;
@@ -164,247 +154,12 @@
     gap: 6px;
 }
 
-/* Contact Icon  */
+/* Start Menu  */
 
-.icon-contact .letter {
-    transition: transform var(--dur) var(--ease);
+.start {
+    margin-right: 8px;
 }
 
-.icon-contact .flap-front {
-    transition: opacity var(--dur-fast);
-}
-
-.desktop-icon:hover .icon-contact .letter,
-.desktop-icon:focus-visible .icon-contact .letter {
-    transform: translateY(-16px);
-}
-
-.desktop-icon:hover .icon-contact .flap-front,
-.desktop-icon:focus-visible .icon-contact .flap-front {
-    opacity: 0;
-}
-
-@media (max-width: 600px) {
-    .desktop {
-        height: 100dvh;
-    }
-
-    .desktop__icons {
-        top: 16px;
-        left: 16px;
-        right: 16px;
-        bottom: auto;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
-        align-content: start;
-        gap: 8px;
-    }
-
-    .desktop-icon {
-        width: 100%;
-    }
-}
-
-.icon-videos .arrows {
-    animation: videos-scroll 0.7s linear infinite;
-    animation-play-state: paused;
-}
-
-.desktop-icon:hover .icon-videos .arrows,
-.desktop-icon:focus-visible .icon-videos .arrows {
-    animation-play-state: running;
-}
-
-@keyframes videos-scroll {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(34px);
-    }
-}
-
-:root[data-motion="reduced"] .icon-videos .arrows {
-    animation: none;
-}
-
-/* Pictures Icon */
-
-.icon-pictures .rays {
-    transform-origin: 118px 38px;
-    opacity: 0;
-    animation: pictures-spin 5s linear infinite;
-    animation-play-state: paused;
-    transition: opacity 0.35s ease;
-}
-
-.icon-pictures .sun {
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
-}
-
-.desktop-icon:hover .icon-pictures .rays,
-.desktop-icon:focus-visible .icon-pictures .rays {
-    opacity: 1;
-    animation-play-state: running;
-}
-
-.desktop-icon:hover .icon-pictures .sun,
-.desktop-icon:focus-visible .icon-pictures .sun {
-    transform: scale(1.12);
-}
-
-@keyframes pictures-spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-:root[data-motion="reduced"] .icon-pictures .rays {
-    animation: none;
-}
-
-/* About Icon */
-.icon-about .bubble {
-    transform-origin: 103px 47px;
-    transform: scale(0);
-    opacity: 0;
-    transition: transform 0.2s ease-in, opacity 0.15s ease;
-}
-
-.icon-about .head {
-    transform-origin: 75px 68px;
-    transition: transform 0.3s ease;
-}
-
-.desktop-icon:hover .icon-about .bubble,
-.desktop-icon:focus-visible .icon-about .bubble {
-    transform: scale(1);
-    opacity: 1;
-    transition: transform 0.4s cubic-bezier(0.3, 1.7, 0.5, 1), opacity 0.15s ease;
-}
-
-.desktop-icon:hover .icon-about .head,
-.desktop-icon:focus-visible .icon-about .head {
-    transform: rotate(7deg);
-}
-
-.icon-motion .waves {
-    animation: motion-scroll 1.6s linear infinite;
-    animation-play-state: paused;
-}
-
-.desktop-icon:hover .icon-motion .waves,
-.desktop-icon:focus-visible .icon-motion .waves {
-    animation-play-state: running;
-}
-
-@keyframes motion-scroll {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(-60px);
-    }
-}
-
-:root[data-motion="reduced"] .icon-motion .waves {
-    animation: none;
-}
-
-/* Paint Icon  */
-
-/* Hover swings the brush down and paints a stroke. Moving off reverses it smoothly. */
-.icon-paint .paint-brush {
-    transform-box: view-box;
-    transform-origin: 340px 127px;
-    transition: transform 0.35s ease-in-out;
-}
-
-.icon-paint .paint-trail {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    opacity: 0;
-    /* opacity switches off only after the stroke has fully retracted */
-    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0.35s;
-}
-
-.desktop-icon:hover .icon-paint .paint-brush,
-.desktop-icon:focus-visible .icon-paint .paint-brush {
-    transform: rotate(-28deg);
-}
-
-.desktop-icon:hover .icon-paint .paint-trail,
-.desktop-icon:focus-visible .icon-paint .paint-trail {
-    stroke-dashoffset: 0;
-    opacity: 1;
-    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0s;
-}
-
-/* Motion off: the brush stays still and visible, and no paint stroke appears */
-:root[data-motion="reduced"] .icon-paint .paint-brush {
-    transition: none !important;
-    transform: none !important;
-}
-
-:root[data-motion="reduced"] .icon-paint .paint-trail {
-    transition: none !important;
-    opacity: 0 !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .icon-paint .paint-brush {
-        transition: none !important;
-        transform: none !important;
-    }
-
-    .icon-paint .paint-trail {
-        transition: none !important;
-        opacity: 0 !important;
-    }
-}
-
-/* Projects Icon  */
-
-.icon-projects .projects-paper {
-    transition: transform var(--dur) var(--ease);
-}
-
-.icon-projects .projects-front {
-    transform-box: view-box;
-    transform-origin: 225px 354px;
-    transition: transform var(--dur-fast) var(--ease);
-}
-
-.desktop-icon:hover .icon-projects .projects-paper,
-.desktop-icon:focus-visible .icon-projects .projects-paper {
-    transform: translateY(-50px);
-}
-
-.desktop-icon:hover .icon-projects .projects-front,
-.desktop-icon:focus-visible .icon-projects .projects-front {
-    transform: scaleY(0.9);
-}
-
-:root[data-motion="reduced"] .icon-projects .projects-paper,
-:root[data-motion="reduced"] .icon-projects .projects-front {
-    transition: none !important;
-    transform: none !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .icon-projects .projects-paper,
-    .icon-projects .projects-front {
-        transition: none !important;
-        transform: none !important;
-    }
-}
-
-/* Start menu */
 .start__button {
     display: grid;
     place-items: center;
@@ -487,5 +242,215 @@
     to {
         opacity: 1;
         transform: none;
+    }
+}
+
+/* ---------- Animated icons ----------
+   Hover and focus animations only apply when motion is on, so with motion off
+   every icon simply stays in its rest state. Videos and Motion keep their
+   saved chevron and wave positions: their infinite animations are switched
+   off in the reduced rules at the end of each section. */
+
+/* Contact */
+
+.icon-contact .letter {
+    transition: transform var(--dur) var(--ease);
+}
+
+.icon-contact .flap-front {
+    transition: opacity var(--dur-fast);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-contact .letter,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-contact .letter {
+    transform: translateY(-16px);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-contact .flap-front,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-contact .flap-front {
+    opacity: 0;
+}
+
+/* Videos */
+
+.icon-videos .arrows {
+    animation: videos-scroll 0.7s linear infinite;
+    animation-play-state: paused;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-videos .arrows,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-videos .arrows {
+    animation-play-state: running;
+}
+
+@keyframes videos-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(34px);
+    }
+}
+
+/* Pictures */
+
+.icon-pictures .rays {
+    transform-origin: 118px 38px;
+    opacity: 0;
+    animation: pictures-spin 5s linear infinite;
+    animation-play-state: paused;
+    transition: opacity 0.35s ease;
+}
+
+.icon-pictures .sun {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-pictures .rays,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-pictures .rays {
+    opacity: 1;
+    animation-play-state: running;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-pictures .sun,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-pictures .sun {
+    transform: scale(1.12);
+}
+
+@keyframes pictures-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* About */
+
+.icon-about .bubble {
+    transform-origin: 103px 47px;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.2s ease-in, opacity 0.15s ease;
+}
+
+.icon-about .head {
+    transform-origin: 75px 68px;
+    transition: transform 0.3s ease;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-about .bubble,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-about .bubble {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.4s cubic-bezier(0.3, 1.7, 0.5, 1), opacity 0.15s ease;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-about .head,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-about .head {
+    transform: rotate(7deg);
+}
+
+/* Motion */
+
+.icon-motion .waves {
+    animation: motion-scroll 1.6s linear infinite;
+    animation-play-state: paused;
+}
+
+.desktop-icon:hover .icon-motion .waves,
+.desktop-icon:focus-visible .icon-motion .waves {
+    animation-play-state: running;
+}
+
+@keyframes motion-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-60px);
+    }
+}
+
+:root[data-motion="reduced"] .icon-motion .waves {
+    animation: none;
+}
+
+/* Paint */
+
+.icon-paint .paint-brush {
+    transform-box: view-box;
+    transform-origin: 340px 127px;
+    transition: transform 0.35s ease-in-out;
+}
+
+.icon-paint .paint-trail {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    opacity: 0;
+    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0.35s;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-paint .paint-brush,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-paint .paint-brush {
+    transform: rotate(-28deg);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-paint .paint-trail,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-paint .paint-trail {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0s;
+}
+
+/* Projects */
+
+.icon-projects .projects-paper {
+    transition: transform var(--dur) var(--ease);
+}
+
+.icon-projects .projects-front {
+    transform-box: view-box;
+    transform-origin: 225px 354px;
+    transition: transform var(--dur-fast) var(--ease);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-projects .projects-paper,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-projects .projects-paper {
+    transform: translateY(-50px);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-projects .projects-front,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-projects .projects-front {
+    transform: scaleY(0.9);
+}
+
+/* Mobile Layout  */
+
+@media (max-width: 600px) {
+    .desktop {
+        height: 100dvh;
+    }
+
+    .desktop__icons {
+        top: 16px;
+        left: 16px;
+        right: 16px;
+        bottom: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+        align-content: start;
+        gap: 8px;
+    }
+
+    .desktop-icon {
+        width: 100%;
+    }
+
+    .taskbar__app-name,
+    .taskbar__brand {
+        display: none;
     }
 }

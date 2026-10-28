@@ -4,6 +4,7 @@ import VideosIcon from '../components/icons/VideosIcon'
 import ContactIcon from '../components/icons/ContactIcon'
 import MotionIcon from '../components/icons/MotionIcon'
 import PaintIcon from '../components/icons/PaintIcon'
+import ProjectsIcon from '../components/icons/ProjectsIcon'
 import AboutApp from '../apps/AboutApp'
 import PicturesApp from '../apps/PicturesApp'
 import VideosApp from '../apps/VideosApp'
@@ -19,6 +20,6 @@ export const apps = [
     { id: 'contact', name: 'Contact', icon: '✉️', Icon: ContactIcon, Component: ContactApp, width: 480, height: 420 },
     { id: 'motion', name: 'Motion', icon: '🎞️', Icon: MotionIcon, toggle: true },
     { id: 'resume', name: 'Resume', icon: '📄', Component: ResumeApp, width: 640, height: 560 },
-    { id: 'projects', name: 'Projects', icon: '🗂️', Component: ProjectsApp, width: 760, height: 560 },
+    { id: 'projects', name: 'Projects', icon: '🗂️', Icon: ProjectsIcon, Component: ProjectsApp, width: 760, height: 560 },
     { id: 'paint', name: 'MXPaint', icon: '🎨', Icon: PaintIcon, Component: PaintApp, width: 700, height: 620 },
 ]

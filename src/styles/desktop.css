@@ -427,6 +427,34 @@
     transform: scaleY(0.9);
 }
 
+/* Resume */
+
+.icon-resume .resume-page {
+    transform-box: view-box;
+    transform-origin: 225px 325px;
+    transition: transform var(--dur) var(--ease);
+}
+
+.icon-resume .resume-badge {
+    transform-box: view-box;
+    transform-origin: 315px 315px;
+    transform: scale(0);
+    opacity: 0;
+    transition: transform var(--dur-fast) ease-in, opacity var(--dur-fast) ease;
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-resume .resume-page,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-resume .resume-page {
+    transform: translateY(-10px) rotate(-4deg);
+}
+
+:root:not([data-motion="reduced"]) .desktop-icon:hover .icon-resume .resume-badge,
+:root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-resume .resume-badge {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform var(--dur) cubic-bezier(0.3, 1.7, 0.5, 1), opacity var(--dur-fast) ease;
+}
+
 /* Mobile Layout  */
 
 @media (max-width: 600px) {

@@ -383,14 +383,14 @@
 .icon-paint .paint-brush {
     transform-box: view-box;
     transform-origin: 340px 127px;
-    transition: transform 0.35s ease-in-out;
+    transition: transform var(--dur) var(--ease);
 }
 
 .icon-paint .paint-trail {
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     opacity: 0;
-    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0.35s;
+    transition: stroke-dashoffset var(--dur) var(--ease), opacity 0s linear var(--dur);
 }
 
 :root:not([data-motion="reduced"]) .desktop-icon:hover .icon-paint .paint-brush,
@@ -402,7 +402,7 @@
 :root:not([data-motion="reduced"]) .desktop-icon:focus-visible .icon-paint .paint-trail {
     stroke-dashoffset: 0;
     opacity: 1;
-    transition: stroke-dashoffset 0.35s ease-in-out, opacity 0s linear 0s;
+    transition: stroke-dashoffset var(--dur) var(--ease), opacity 0s linear 0s;
 }
 
 /* Projects */

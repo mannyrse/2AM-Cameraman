@@ -11,6 +11,7 @@ export const profile = {
     ],
     links: [
         { label: 'YouTube', href: 'https://www.youtube.com/@2amCameraman' },
+        { label: 'Instagram', href: 'https://www.instagram.com/2am_cameraman/' },
     ],
     email: 'max@mail.com',
 }

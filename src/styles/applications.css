@@ -67,8 +67,13 @@
 /* Contact App */
 
 .contact {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
     padding: 8px 0;
+    text-align: center;
 }
 
 .contact__title {
@@ -83,20 +88,31 @@
     line-height: 1.6;
 }
 
-.contact__cta {
+.contact__cta,
+.contact__links a {
     display: inline-block;
-    padding: 12px 28px;
-    background: var(--accent);
-    color: #0b1020;
-    font-weight: 600;
-    border-radius: 999px;
+    padding: 8px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
     text-decoration: none;
-    transition: transform var(--dur-fast), filter var(--dur-fast);
+    cursor: pointer;
+    transition: background var(--dur-fast), transform var(--dur-fast);
 }
 
-.contact__cta:hover {
+.contact__cta:hover,
+.contact__links a:hover {
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+:root:not([data-motion="reduced"]) .contact__cta:hover {
     transform: translateY(-1px);
-    filter: brightness(1.1);
+}
+
+:root:not([data-motion="reduced"]) .contact__cta:active {
+    transform: translateY(0);
 }
 
 .contact__address {
@@ -113,21 +129,6 @@
     margin: 0;
     padding: 0;
     list-style: none;
-}
-
-.contact__links a {
-    display: inline-block;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--text);
-    text-decoration: none;
-    transition: background var(--dur-fast), border-color var(--dur-fast);
-}
-
-.contact__links a:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--accent);
 }
 
 /* Photos App */

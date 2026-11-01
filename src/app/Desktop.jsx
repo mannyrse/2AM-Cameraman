@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import DesktopIcon from '../components/DesktopIcon'
+import MobileWidget from '../components/MobileWidget'
 import Taskbar from '../components/Taskbar'
 import WindowFrame from '../components/WindowFrame'
 import { useWindowManager } from '../hooks/useWindowManager'
 import { useMotion } from '../hooks/useMotion'
+import { useIsMobile } from '../hooks/useIsMobile'
 import { apps } from './desktopConfig'
 
 export default function Desktop() {
@@ -13,6 +15,7 @@ export default function Desktop() {
     } = useWindowManager()
 
     const videoRef = useRef(null)
+    const isMobile = useIsMobile()
     const [motion, setMotion] = useMotion()
     const reduced = motion === 'reduced'
 
@@ -30,13 +33,32 @@ export default function Desktop() {
         else openApp(id)
     }
 
-    // The Motion icon's label shows the current state
-    const iconApps = apps.map((a) =>
-        a.toggle ? { ...a, name: reduced ? 'Motion: Off' : 'Motion: On' } : a
+    // Toggle apps (Motion) go last. Its label shows the current state.
+    const iconApps = [
+        ...apps.filter((a) => !a.toggle),
+        ...apps.filter((a) => a.toggle),
+    ].map((a) => (a.toggle ? { ...a, name: reduced ? 'Motion: Off' : 'Motion: On' } : a))
+
+    const icons = (
+        <nav className="desktop__icons" aria-label="Applications">
+            {iconApps.map((app, i) => (
+                <DesktopIcon
+                    key={app.id}
+                    app={app}
+                    index={i}
+                    pressed={app.toggle ? reduced : undefined}
+                    onOpen={activate}
+                />
+            ))}
+        </nav>
     )
 
     return (
         <div className="desktop">
+            <h1 className="visually-hidden">
+                2AM Cameraman: Max Cavaness, photographer and videographer in River Falls, WI
+            </h1>
+
             <video
                 ref={videoRef}
                 className="desktop__wallpaper"
@@ -46,20 +68,17 @@ export default function Desktop() {
                 muted
                 loop
                 playsInline
+                aria-hidden="true"
             />
-            <div className="desktop__overlay" />
 
-            <nav className="desktop__icons" aria-label="Applications">
-                {iconApps.map((app, i) => (
-                    <DesktopIcon
-                        key={app.id}
-                        app={app}
-                        index={i}
-                        pressed={app.toggle ? reduced : undefined}
-                        onOpen={activate}
-                    />
-                ))}
-            </nav>
+            {isMobile ? (
+                <div className="desktop__home">
+                    <MobileWidget />
+                    {icons}
+                </div>
+            ) : (
+                icons
+            )}
 
             {windows.map((win) => {
                 const app = apps.find((a) => a.id === win.appId)

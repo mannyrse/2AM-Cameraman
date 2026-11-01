@@ -457,6 +457,61 @@
 
 /* Mobile Layout  */
 
+.desktop__home {
+    position: absolute;
+    inset: 0 0 var(--taskbar-height) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    overflow-y: auto;
+    z-index: var(--z-icons);
+}
+
+.desktop__home .desktop__icons {
+    position: static;
+}
+
+
+/* Mobile Screen Widget  */
+
+.mobile-widget {
+    flex: none;
+    padding: 20px;
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.mobile-widget p {
+    margin: 0;
+}
+
+.mobile-widget__time {
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+}
+
+.mobile-widget__date {
+    margin-top: 4px;
+    color: var(--text-muted);
+}
+
+.mobile-widget__name {
+    margin-top: 16px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.mobile-widget__role {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
 @media (max-width: 600px) {
     .desktop {
         height: 100dvh;

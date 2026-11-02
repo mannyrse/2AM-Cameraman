@@ -25,4 +25,11 @@
     /* window manager counts up from here */
     --z-taskbar: 9000;
     --z-modal: 10000;
+
+    --sunset-ink: #17121a;
+    --sunset-purple: #4a2768;
+    --sunset-coral: #e84a3c;
+    --sunset-orange: #f39c12;
+    --sunset-amber: #f8b142;
+    --sunset-sand: #fae07a;
 }

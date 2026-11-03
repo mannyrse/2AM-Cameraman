@@ -245,11 +245,7 @@
     }
 }
 
-/* ---------- Animated icons ----------
-   Hover and focus animations only apply when motion is on, so with motion off
-   every icon simply stays in its rest state. Videos and Motion keep their
-   saved chevron and wave positions: their infinite animations are switched
-   off in the reduced rules at the end of each section. */
+/* Animated Icons  */
 
 /* Contact */
 
@@ -472,23 +468,22 @@
     position: static;
 }
 
-
 /* Mobile Screen Widget  */
 
 .mobile-widget {
     position: relative;
     flex: none;
     overflow: hidden;
-    padding: 20px 20px 26px;
+    padding: 20px;
     background: linear-gradient(160deg,
             color-mix(in srgb, var(--sunset-ink) 88%, transparent),
             color-mix(in srgb, var(--sunset-purple) 70%, transparent));
     backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-radius: 16px;
+    animation: icon-in var(--dur) var(--ease) both;
 }
 
-/* Coral glow rising from the bottom edge */
 .mobile-widget::before {
     content: "";
     position: absolute;
@@ -555,6 +550,7 @@
 
     .desktop-icon {
         width: 100%;
+        animation-delay: calc(120ms + var(--i) * 80ms);
     }
 
     .taskbar__app-name,

@@ -10,9 +10,9 @@ export default function AboutApp() {
             />
             <div className="about__text">
                 <h1 className="about__name">{profile.name}</h1>
-                <p className="about__role">
+                {/* <p className="about__role">
                     {profile.tagline} · {profile.role}
-                </p>
+                </p> */}
                 {profile.bio.map((paragraph, i) => (
                     <p key={i}>{paragraph}</p>
                 ))}

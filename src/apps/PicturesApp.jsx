@@ -6,7 +6,7 @@ export default function PicturesApp() {
     const [openIndex, setOpenIndex] = useState(null)
 
     if (photos.length === 0) {
-        return <p className="gallery__empty">No photos yet. Add images to src/assets/photos.</p>
+        return <p className="gallery__empty">No photos yet. Add images to photos-original and run npm run photos.</p>
     }
 
     return (
@@ -19,10 +19,11 @@ export default function PicturesApp() {
                             aria-label={`View ${photo.title}`}
                             onClick={() => setOpenIndex(i)}
                         >
-                            <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" />
+                            <img src={photo.thumb} alt={photo.alt} loading="lazy" decoding="async" />
                             <span className="gallery__title" aria-hidden="true">
                                 <span className="gallery__title-text">{photo.title}</span>
-                            </span>                        </button>
+                            </span>
+                        </button>
                     </li>
                 ))}
             </ul>

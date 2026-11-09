@@ -390,7 +390,8 @@
 /* ---- featured view ---- */
 .video-stage {
     display: grid;
-    grid-template-columns: minmax(0, calc(60vh * 16 / 9)) minmax(15rem, 1fr);
+    grid-template-columns: minmax(0, calc(60vh * 16 / 9)) minmax(15rem, 26rem);
+    justify-content: center;
     gap: 20px 28px;
     align-items: start;
 }
@@ -400,7 +401,7 @@
 }
 
 .video-stage__details {
-    max-width: 40rem;
+    min-width: 0;
 }
 
 .video-back {

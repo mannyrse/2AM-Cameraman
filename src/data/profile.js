@@ -1,4 +1,4 @@
-import portrait from '../assets/images/about.png'
+import portrait from '../assets/images/profile.png'
 
 export const profile = {
     name: 'Max Cavaness',

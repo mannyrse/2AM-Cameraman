@@ -1,10 +1,19 @@
 /* About App */
 
+.window__content:has(.about) {
+    container: about / inline-size;
+    display: flex;
+    flex-direction: column;
+}
+
 .about {
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 24px;
-    align-items: start;
+    grid-template-columns: clamp(180px, 28cqi, 340px) minmax(0, 1fr);
+    gap: clamp(20px, 3cqi, 48px);
+    align-items: center;
+    width: 100%;
+    max-width: 72rem;
+    margin: auto;
 }
 
 .about__portrait {
@@ -15,9 +24,14 @@
     border: 1px solid var(--border);
 }
 
+.about__text {
+    min-width: 0;
+}
+
 .about__name {
     margin: 0;
-    font-size: 28px;
+    font-size: clamp(28px, 3cqi + 12px, 42px);
+    overflow-wrap: anywhere;
 }
 
 .about__role {
@@ -26,6 +40,7 @@
 }
 
 .about__text p {
+    font-size: clamp(1rem, 0.85rem + 0.4cqi, 1.125rem);
     line-height: 1.6;
     color: var(--text);
 }
@@ -54,13 +69,15 @@
     border-color: var(--accent);
 }
 
-@media (max-width: 600px) {
+/* Narrow window: portrait on top, centered, text below */
+@container about (max-width: 520px) {
     .about {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .about__portrait {
-        max-width: 200px;
+        width: min(100%, 240px);
+        justify-self: center;
     }
 }
 

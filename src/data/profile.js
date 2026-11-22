@@ -2,7 +2,7 @@ import portrait from '../assets/images/profile.png'
 
 export const profile = {
     name: 'Max Cavaness',
-    // tagline: '2AM Cameraman',
+    tagline: '2AM Cameraman',
     // role: '',
     portrait,
     bio: [

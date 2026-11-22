@@ -12,7 +12,7 @@ export default function MobileWidget() {
             <p className="mobile-widget__date">{date}</p>
             <p className="mobile-widget__name">{profile.name}</p>
             <p className="mobile-widget__role">
-                {profile.tagline} · {profile.role}
+                {profile.tagline}
             </p>
         </aside>
     )

@@ -21,6 +21,6 @@ export const apps = [
     { id: 'contact', name: 'Contact', icon: '✉️', Icon: ContactIcon, Component: ContactApp, width: 480, height: 420 },
     { id: 'motion', name: 'Motion', icon: '🎞️', Icon: MotionIcon, toggle: true },
     { id: 'resume', name: 'Resume', icon: '📄', Icon: ResumeIcon, Component: ResumeApp, width: 640, height: 560 },
-    { id: 'projects', name: 'Projects', icon: '🗂️', Icon: ProjectsIcon, Component: ProjectsApp, width: 760, height: 560 },
+    // { id: 'projects', name: 'Projects', icon: '🗂️', Icon: ProjectsIcon, Component: ProjectsApp, width: 760, height: 560 },
     { id: 'paint', name: 'MXPaint', icon: '🎨', Icon: PaintIcon, Component: PaintApp, width: 700, height: 620 },
 ]

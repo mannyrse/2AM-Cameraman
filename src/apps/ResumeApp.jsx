@@ -9,7 +9,7 @@ export default function ResumeApp() {
                     <h1 className="resume__name">{profile.name}</h1>
                     <p className="resume__role">{profile.role}</p>
                 </div>
-                <a className="resume__download" href="/my_resume.pdf" download="Max-Cavaness-Resume.pdf">
+                <a className="resume__download" href="/resume.pdf" download="Max-Cavaness-Resume.pdf">
                     Download PDF
                 </a>
             </header>

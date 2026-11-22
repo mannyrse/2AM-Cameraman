@@ -13,5 +13,5 @@ export const profile = {
         { label: 'Instagram', href: 'https://www.instagram.com/2am_cameraman/' },
         { label: 'Bluesky', href: 'https://bsky.app/profile/maxhescav.bsky.social' },
     ],
-    email: 'max@mail.com',
+    email: '2amcamerman@gmail.com',
 }
